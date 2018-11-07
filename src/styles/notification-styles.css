@@ -1,0 +1,14 @@
+.containerTopRightBelowBar {
+    z-index: 1;
+    position: fixed;
+    overflow-y: auto;
+    max-height: 100vh;
+    right: 0;
+    transform: translate3d(-50%, 0, 0);
+    flex-direction: column;
+    top: 50px;
+}
+
+.containerTopRightBelowBar::-webkit-scrollbar {
+    display: none;
+}
