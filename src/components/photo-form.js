@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router";
 import { FieldArray, Formik } from "formik";
 import shortId from "shortid";
-import yup from "yup";
+import * as yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input, Progress } from "reactstrap";
 

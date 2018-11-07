@@ -1,7 +1,7 @@
 // Render Prop
 import React from "react";
 import PropTypes from "prop-types";
-import yup from "yup";
+import * as yup from "yup";
 import { Button, FormGroup, Input, Label } from "reactstrap";
 import { Formik } from "formik";
 

@@ -1,9 +1,9 @@
-import "babel-polyfill";
+// import "babel-polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
-import { whyDidYouUpdate } from "why-did-you-update";
+// import { whyDidYouUpdate } from "why-did-you-update";
 
 import configureStore from "./store/configureStore.js";
 // Styles
@@ -14,9 +14,9 @@ import "font-awesome/css/font-awesome.min.css";
 // Import Simple Line Icons Set
 import "simple-line-icons/css/simple-line-icons.css";
 // Import Main styles for this application
-import "../scss/style.scss";
+import "./scss/style.scss";
 // Temp fix for reactstrap
-import "../scss/core/_dropdown-menu-right.scss";
+import "./scss/core/_dropdown-menu-right.scss";
 
 // Containers
 import Full from "./containers/Full/";
