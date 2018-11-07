@@ -7,6 +7,7 @@ import {
 } from "../dux/selectors/reselect-selectors.js";
 
 import { startDeletePhotosProcess } from "../dux/photosReducer.js";
+import PhotosWrapper from "./photos-wrapper.js";
 
 const mapStateToProps = state => ({
   selectPhotos: selectPhotosEnhanced(state),
@@ -23,7 +24,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-import PhotosWrapper from "./photos-wrapper.js";
+
 
 const PhotosConn = connect(
   mapStateToProps,

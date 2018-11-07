@@ -6,8 +6,8 @@ import BandForm from "../components/band-form.js";
 
 // Dux
 import {
-  bandStartCardFileUpload,
-  bandStartThumbFileUpload,
+  // bandStartCardFileUpload,
+  // bandStartThumbFileUpload,
   saveNewBand,
   saveEditedBand,
   saveBandClear,
@@ -66,9 +66,9 @@ const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators(
     {
       notifyInfo,
-      submitDataToServer: saveEditedBand,
-      sendStorageThumbStart: bandStartThumbFileUpload,
-      sendStorageCardStart: bandStartCardFileUpload
+      submitDataToServer: saveEditedBand
+      // sendStorageThumbStart: bandStartThumbFileUpload,
+      // sendStorageCardStart: bandStartCardFileUpload
     },
     dispatch
   );
