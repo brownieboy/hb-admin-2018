@@ -1,46 +1,15 @@
-// import "babel-polyfill";
+import "react-app-polyfill/ie9"; // For IE 9-11 support
+import "react-app-polyfill/ie11"; // For IE 11 support
+import "./polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
-import { HashRouter, Route, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
-// import { whyDidYouUpdate } from "why-did-you-update";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 
-import configureStore from "./store/configureStore.js";
-// Styles
-// Import Flag Icons Set
-// import "flag-icon-css/css/flag-icon.min.css";
-// Import Font Awesome Icons Set
-import "font-awesome/css/font-awesome.min.css";
-// Import Simple Line Icons Set
-import "simple-line-icons/css/simple-line-icons.css";
-// Import Main styles for this application
-import "./scss/style.scss";
-// Temp fix for reactstrap
-import "./scss/core/_dropdown-menu-right.scss";
+ReactDOM.render(<App />, document.getElementById("root"));
 
-// Containers
-import Full from "./containers/Full/";
-const store = configureStore({});
-
-
-
-// console.log("process.env.NODE_ENV:");
-// console.log(process.env.NODE_ENV);
-// Variable injected with Webpack's DefinePlugin
-if (
-  typeof process.env.NODE_ENV === "object" &&
-  process.env.NODE_ENV !== "dev"
-) {
-  // whyDidYouUpdate(React);
-}
-
-ReactDOM.render(
-  <Provider store={store}>
-    <HashRouter>
-      <Switch>
-        <Route path="/" name="Home" component={Full} />
-      </Switch>
-    </HashRouter>
-  </Provider>,
-  document.getElementById("root")
-);
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();

@@ -22,6 +22,9 @@ import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
 
+// console.log("DefaultLayout.js, routes:");
+// console.log(routes);
+
 class DefaultLayout extends Component {
   render() {
     return (
