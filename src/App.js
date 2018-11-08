@@ -5,7 +5,7 @@ import "./App.scss";
 import configureStore from "./store/configureStore.js";
 
 // Containers
-import { DefaultLayout } from "./containers";
+import { Layout } from "./containers";
 // Pages
 import { Login, Page404, Page500, Register } from "./views/Pages";
 
@@ -28,7 +28,7 @@ class App extends Component {
             />
             <Route exact path="/404" name="Page 404" component={Page404} />
             <Route exact path="/500" name="Page 500" component={Page500} />
-            <Route path="/" name="Home" component={DefaultLayout} />
+            <Route path="/" name="Home" component={Layout} />
           </Switch>
         </HashRouter>
       </Provider>

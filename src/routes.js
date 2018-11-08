@@ -70,8 +70,13 @@ const Photos = Loadable({
   loading: Loading
 });
 
+// BandFormNewConn
+let BandFormNew;
 const BandForm = Loadable({
   loader: () => import("./views/bands-conn.js"),
+  render(loaded) {
+    BandFormNew = loaded.BandFormNewConn;
+  },
   loading: Loading
 });
 const EditHomePage = Loadable({
@@ -82,8 +87,23 @@ const StageForm = Loadable({
   loader: () => import("./containers/stage-form-conn.js"),
   loading: Loading
 });
-const ScheduleForm = Loadable({
+
+/*
+Loadable({
+  loader: () => import('./my-component'),
+  render(loaded, props) {
+    let Component = loaded.namedExport;
+    return <Component {...props}/>;
+  }
+});
+ */
+
+let ScheduleFormNew;
+Loadable({
   loader: () => import("./containers/schedule-form-conn.js"),
+  render(loaded) {
+    ScheduleFormNew = loaded.ScheduleFormNewConn;
+  },
   loading: Loading
 });
 const LoginEmailForm = Loadable({
@@ -99,7 +119,6 @@ const DatesEditForm = Loadable({
   loading: Loading
 });
 
-
 const routes = [
   { path: "/", exact: true, name: "Home", component: EditHomePage },
   { path: "/homepage", exact: true, name: "HomePage", component: EditHomePage },
@@ -112,12 +131,17 @@ const routes = [
     name: "StageForm",
     component: StageForm
   },
-  { path: "/bandform", exact: true, name: "BandForm", component: BandForm },
+  {
+    path: "/bandform",
+    exact: true,
+    name: "BandFormNew",
+    component: BandFormNew
+  },
   {
     path: "/scheduleform",
     exact: true,
-    name: "ScheduleForm",
-    component: ScheduleForm
+    name: "ScheduleFormNew",
+    component: ScheduleFormNew
   },
   {
     path: "/loginemailform",
@@ -132,7 +156,7 @@ const routes = [
     name: "ContactUsPage",
     component: ContactUsPage
   },
-    {
+  {
     path: "/dates",
     exact: true,
     name: "DatesPage",
