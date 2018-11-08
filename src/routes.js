@@ -71,11 +71,11 @@ const Photos = Loadable({
 });
 
 // BandFormNewConn
-let BandFormNew;
-const BandForm = Loadable({
+const BandFormNew = Loadable({
   loader: () => import("./views/bands-conn.js"),
-  render(loaded) {
-    BandFormNew = loaded.BandFormNewConn;
+  render(loaded, props) {
+    let Component = loaded.BandFormNewConn;
+    return <Component {...props} />;
   },
   loading: Loading
 });
