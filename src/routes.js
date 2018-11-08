@@ -2,7 +2,6 @@
 import React from "react";
 // import { whyDidYouUpdate } from "why-did-you-update";
 
-
 // Styles
 // Import Flag Icons Set
 // import "flag-icon-css/css/flag-icon.min.css";
@@ -91,6 +90,15 @@ const LoginEmailForm = Loadable({
   loader: () => import("./containers/loginemailform-conn.js"),
   loading: Loading
 });
+const ContactUsPage = Loadable({
+  loader: () => import("./containers/contactus-form-conn.js"),
+  loading: Loading
+});
+const DatesEditForm = Loadable({
+  loader: () => import("./containers/dates-form-conn.js"),
+  loading: Loading
+});
+
 
 const routes = [
   { path: "/", exact: true, name: "Home", component: EditHomePage },
@@ -117,8 +125,19 @@ const routes = [
     name: "LoginEmailForm",
     component: LoginEmailForm
   },
-  { path: "/photos", exact: true, name: "Photos", component: Photos }
+  { path: "/photos", exact: true, name: "Photos", component: Photos },
+  {
+    path: "/contactuspage",
+    exact: true,
+    name: "ContactUsPage",
+    component: ContactUsPage
+  },
+    {
+    path: "/dates",
+    exact: true,
+    name: "DatesPage",
+    component: DatesEditForm
+  }
 ];
 
 export default routes;
-

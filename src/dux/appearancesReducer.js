@@ -1,6 +1,6 @@
 // import { createSelector } from "reselect";
 import * as d3 from "d3-collection";
-import { addMinutes, format } from "date-fns";
+import { addMinutes, format as dateFNSFormat } from "date-fns";
 import { getBandInfoForId } from "./bandsReducer.js";
 import { getStageInfoForId } from "./stagesReducer.js";
 
@@ -271,9 +271,14 @@ export const getAppearancesGroupedByDay = state => {
       );
       // const dateOnly = appearance.dateTimeStart.split("T")[0];
       const groupDate = new Date(dateOnly);
-      // console.log("groupDate for :" + appearance.dateTimeStart + ", dateOnly = " + dateOnly);
+      // console.log(
+      //   "groupDate for :" +
+      //     appearance.dateTimeStart +
+      //     ", dateOnly = " +
+      //     dateOnly
+      // );
       // console.log(groupDate);
-      const groupDateFormatted = format(new Date(groupDate), "dddd DD/MM/YYYY");
+      const groupDateFormatted = dateFNSFormat(groupDate, "iiii dd/MM/yyyy");
       // console.log("groupDateFormatted: " + groupDateFormatted);
       return groupDateFormatted;
     })
@@ -297,7 +302,10 @@ export const getAppearancesGroupedByDayThenStage = state => {
       const groupDate = new Date(dateOnly);
       // console.log("groupDate for :" + appearance.dateTimeStart + ", dateOnly = " + dateOnly);
       // console.log(groupDate);
-      const groupDateFormatted = format(new Date(groupDate), "dddd DD/MM/YYYY");
+      const groupDateFormatted = dateFNSFormat(
+        new Date(groupDate),
+        "iiii dd/MM/yyyy"
+      );
       // console.log("groupDateFormatted: " + groupDateFormatted);
       return groupDateFormatted;
     })
@@ -314,7 +322,7 @@ export const getAppearancesGroupedByDayThenStage = state => {
 //   appearancesList =>
 //     d3
 //       .nest()
-//       .key(appearance => format(new Date(appearance.dateTimeStart), "dddd"))
+//       .key(appearance => format(new Date(appearance.dateTimeStart), "iiii"))
 //       .key(appearance => `${appearance.stageSortOrder}~${appearance.stageName}`)
 //       .sortKeys(
 //         (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
