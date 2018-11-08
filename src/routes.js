@@ -93,31 +93,31 @@ const LoginEmailForm = Loadable({
 });
 
 const routes = [
-  { path: "/", extact: true, name: "Home", component: EditHomePage },
-  { path: "/homepage", extact: true, name: "HomePage", component: EditHomePage },
-  { path: "/bands", extact: true, name: "Bands", component: Bands },
-  { path: "/schedule", extact: true, name: "Schedule", component: Schedule },
-  { path: "/stages", extact: true, name: "Stages", component: Stages },
+  { path: "/", exact: true, name: "Home", component: EditHomePage },
+  { path: "/homepage", exact: true, name: "HomePage", component: EditHomePage },
+  { path: "/bands", exact: true, name: "Bands", component: Bands },
+  { path: "/schedule", exact: true, name: "Schedule", component: Schedule },
+  { path: "/stages", exact: true, name: "Stages", component: Stages },
   {
     path: "/stageform",
-    extact: true,
+    exact: true,
     name: "StageForm",
     component: StageForm
   },
-  { path: "/bandform", extact: true, name: "BandForm", component: BandForm },
+  { path: "/bandform", exact: true, name: "BandForm", component: BandForm },
   {
     path: "/scheduleform",
-    extact: true,
+    exact: true,
     name: "ScheduleForm",
     component: ScheduleForm
   },
   {
     path: "/loginemailform",
-    extact: true,
+    exact: true,
     name: "LoginEmailForm",
     component: LoginEmailForm
   },
-  { path: "/photos", extact: true, name: "Photos", component: Photos }
+  { path: "/photos", exact: true, name: "Photos", component: Photos }
 ];
 
 export default routes;

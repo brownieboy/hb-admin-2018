@@ -1,9 +1,10 @@
 import React from "react";
-import { defaultThumbnailPath } from "../constants/general.js";
+// import { defaultThumbnailPath } from "../constants/general.js";
+import defaultThumbnail from "../assets/img/RockNRollGuitarist.png";
 
 export const ThumbNail = ({ thumbFullUrl, size = 50, round = false }) => (
   <img
-    src={thumbFullUrl || defaultThumbnailPath}
+    src={thumbFullUrl || defaultThumbnail}
     alt="thumbnail"
     style={{
       height: size,
