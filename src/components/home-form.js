@@ -5,10 +5,10 @@ import * as yup from "yup";
 import { Button, FormGroup, Input, Label } from "reactstrap";
 import { Formik } from "formik";
 
-import {
-  LoadStatusIndicator,
-  SaveStatusIndicator
-} from "./loadsaveindicator.js";
+// import {
+//   LoadStatusIndicator,
+//   SaveStatusIndicator
+// } from "./loadsaveindicator.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 const HomeForm = ({

@@ -1,7 +1,7 @@
 // Following instructions from redux-saga-firebase Github readme.
 import { call, fork, put, take, takeEvery } from "redux-saga/effects";
 
-import { authProvider, reduxSagaFirebase } from "../../apis/firebase-dev.js";
+import { reduxSagaFirebase } from "../../apis/firebase-dev.js";
 import {
   types,
   loginSuccess,

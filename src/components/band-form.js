@@ -295,11 +295,11 @@ class BandForm extends Component {
                     {errors.facebookId && <div>{errors.facebookId}</div>}
                     <span style={helpInfoTextStyles}>
                       To get the page ID, paste FB page URL in at{" "}
-                      <a href="https://findmyfbid.com/" target="_blank">
+                      <a href="https://findmyfbid.com/" target="_blank" rel="noopener noreferrer">
                         https://findmyfbid.com/
                       </a>{" "}
                       or{" "}
-                      <a href="https://lookup-id.com/" target="_blank">
+                      <a href="https://lookup-id.com/" target="_blank" rel="noopener noreferrer">
                         https://lookup-id.com/
                       </a>
                     </span>

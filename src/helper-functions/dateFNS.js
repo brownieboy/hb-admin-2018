@@ -1,6 +1,6 @@
 import { format as dateFnsFormat } from "date-fns";
 import dateFnsLocalizer from "react-widgets-date-fns";
-import { dateFormatString } from "../constants/formats.js";
+// import { dateFormatString } from "../constants/formats.js";
 import enGB from "date-fns/locale/en-GB";
 
 dateFnsLocalizer({ locales: { "en-GB": enGB } });

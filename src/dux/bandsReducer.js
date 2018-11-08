@@ -2,7 +2,7 @@
 
 // import { selectCurrentYear } from "./datesReducer.js";
 // import { getPhotoInfoForId } from "./photosReducer.js";
-import { stringSortIgnoreArticle } from "../helper-functions/sorting.js";
+// import { stringSortIgnoreArticle } from "../helper-functions/sorting.js";
 
 // Action type constants
 const LOAD_BANDS_NOW = "LOAD_BANDS_NOW"; // Imperative, hence "NOW"!
@@ -45,7 +45,7 @@ const bandsReducer = (
   },
   action
 ) => {
-  let idx, newBandsList, currentBandObj, newBandObj;
+  let idx, newBandsList;
   switch (action.type) {
     case FETCH_BANDS_REQUEST:
       return { ...state, fetchStatus: "loading" };
@@ -172,8 +172,8 @@ export const selectBands = state => state.bandsState.bandsList || [];
 export const getBandInfoForId = (bandsList, bandId) =>
   bandsList ? bandsList.find(bandMember => bandMember.id === bandId) : null;
 
-const getBandsAlphabetical = state =>
-  stringSortIgnoreArticle([...state.bandsStorage.bandsList], "name");
+// const getBandsAlphabetical = state =>
+//   stringSortIgnoreArticle([...state.bandsStorage.bandsList], "name");
 
 // Need to add the URLs here.
 // export const getBandsAlphabeticalEnhanced = state => {

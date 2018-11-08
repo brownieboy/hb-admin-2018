@@ -4,6 +4,7 @@ import { defaultThumbnailPath } from "../constants/general.js";
 export const ThumbNail = ({ thumbFullUrl, size = 50, round = false }) => (
   <img
     src={thumbFullUrl || defaultThumbnailPath}
+    alt="thumbnail"
     style={{
       height: size,
       width: size,
@@ -21,10 +22,16 @@ export const ThumbImage = ({ url = "", round = false }) =>
       name="thumbnailImage"
       style={{ height: 200, width: 200, borderRadius: round ? "50%" : 0 }}
       src={url}
+      alt="thumbnail"
     />
   ) : null;
 
 export const CardImage = ({ url = "" }) =>
   url !== "" ? (
-    <img name="cardImage" style={{ height: 300, width: 400 }} src={url} />
+    <img
+      name="cardImage"
+      style={{ height: 300, width: 400 }}
+      src={url}
+      alt="card"
+    />
   ) : null;

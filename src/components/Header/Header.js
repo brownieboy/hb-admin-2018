@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Button, NavbarToggler, NavbarBrand } from "reactstrap";
+import { Button, NavbarToggler } from "reactstrap";
 
-import LoginButton from "../../containers/loginbutton-conn.js";
+// import LoginButton from "../../containers/loginbutton-conn.js";
 import PublishButton from "../../containers/publishbutton-conn.js";
 
 class Header extends Component {

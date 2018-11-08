@@ -140,11 +140,11 @@ class DatesForm extends Component {
 
   render() {
     const {
-      isEditExisting,
+      // isEditExisting,
       isLoggedIn,
-      match,
-      notifyInfo,
-      submitDataToServer,
+      // match,
+      // notifyInfo,
+      // submitDataToServer,
       fetchStatus,
       fetchError,
       saveStatus,

@@ -8,7 +8,7 @@ import {
   fnsDateTimeToISOText,
   getDatePortionFromISOTimeString
 } from "../helper-functions/dateFNS.js";
-import { dateFormatString, timeFormatString } from "../constants/formats.js";
+// import { dateFormatString, timeFormatString } from "../constants/formats.js";
 
 // import { d3 } from "d3-collection";
 // import { stringThenDateTimeSort } from "../helper-functions/sorting.js";
@@ -160,7 +160,7 @@ const appearancesReducer = (
 
 // Sort/filter functions for selectors
 // Definitely *is* being used.  So where is its state from?
-const selectAppearances = state => state.appearancesList;
+// const selectAppearances = state => state.appearancesList;
 
 // Selectors use redux-select and are memoised.  But they need to be called
 // before they get memoised!

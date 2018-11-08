@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
-import { FieldArray, Formik } from "formik";
+import { Formik } from "formik";
 import shortId from "shortid";
 import * as yup from "yup";
 import PropTypes from "prop-types";
@@ -12,8 +12,8 @@ import { CardImage, ThumbImage } from "./photo-display.js";
 
 import {
   formFieldsWrapperStyles,
-  helpInfoTextStyles,
-  blurbFieldRows
+  // helpInfoTextStyles,
+  // blurbFieldRows
 } from "./formstyles.js";
 
 const renderOptionsField = dataArray =>
@@ -152,8 +152,8 @@ class PhotoForm extends Component {
               errors,
               handleChange,
               handleBlur,
-              handleSubmit,
-              submitForm
+              handleSubmit
+              // submitForm
             } = props;
 
             // radio inputs from https://github.com/jaredpalmer/formik/issues/116

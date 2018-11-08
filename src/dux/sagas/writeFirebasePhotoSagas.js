@@ -28,9 +28,9 @@ import { deleteStoragePhotos } from "../photosStorageReducer.js";
 
 import {
   notifySuccess,
-  notifyError,
-  notifyWarning,
-  notifyInfo
+  notifyError
+  // notifyWarning,
+  // notifyInfo
 } from "../react-redux-notify-helpers.js";
 
 import firebaseApp from "../../apis/firebase-dev.js";

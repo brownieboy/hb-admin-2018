@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
+// import { createSelector } from "reselect";
 
 // import { stringSort } from "../helper-functions/sorting.js";
 
@@ -40,7 +40,7 @@ const stagesReducer = (
   },
   action
 ) => {
-  let idx, newStagesList, currentStageObj;
+  let idx, newStagesList;
   switch (action.type) {
     case FETCH_STAGES_REQUEST:
       return { ...state, fetchStatus: "loading" };

@@ -1,12 +1,12 @@
 // import { createSelector } from "reselect";
 // import createCachedSelector from "re-reselect";
 
-import {
-  stringSort,
-  stringSortIgnoreArticle
-} from "../helper-functions/sorting.js";
-import { selectBands } from "./bandsReducer.js";
-import { selectStages } from "./stagesReducer.js";
+// import {
+//   stringSort,
+//   stringSortIgnoreArticle
+// } from "../helper-functions/sorting.js";
+// import { selectBands } from "./bandsReducer.js";
+// import { selectStages } from "./stagesReducer.js";
 
 // Action type constants
 
@@ -122,7 +122,7 @@ const photosReducer = (state = defaultState, action) => {
 };
 
 // Selectors
-const getAllPhotos = state => state.photosState.photosList; // not actually a
+// const getAllPhotos = state => state.photosState.photosList; 
 
 // Getters don't use redux-select, so are bad, but flexible
 export const getPhotoInfoForId = (state, photoId) =>

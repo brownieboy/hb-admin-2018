@@ -8,6 +8,7 @@ const PhotoCard = ({ cardFullUrl, preview = false }) => {
   return (
     <img
       src={cardFullUrl || defaultCardPath}
+      alt="card"
       style={{
         height: stylesObj.height,
         width: stylesObj.width,

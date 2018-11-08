@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavItem, NavLink, TabPane } from "reactstrap";
+import { NavItem, NavLink } from "reactstrap";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 

@@ -7,9 +7,9 @@ import "../../styles/notification-styles.css";
 
 import Header from "../../components/Header/";
 import Sidebar from "../../components/Sidebar/";
-import Breadcrumb from "../../components/Breadcrumb/";
+// import Breadcrumb from "../../components/Breadcrumb/";
 import Aside from "../../components/Aside/";
-import Footer from "../../components/Footer/";
+// import Footer from "../../components/Footer/";
 
 import Dashboard from "../../views/Dashboard/";
 import Bands from "../../views/bands-conn.js";

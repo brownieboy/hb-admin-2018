@@ -16,7 +16,7 @@ import {
 class ScheduleByDay extends Component {
   getAppearanceLines = lineData => {
     // const itemsLength = lineData.length;
-    const { adjustmentsMadeDirtyArray, selectedItems } = this.props;
+    const { adjustmentsMadeDirtyArray } = this.props;
     return lineData.map((lineMember, index) => {
       // const lineStyle = { height: 40 };
       // if (itemsLength === index + 1) {

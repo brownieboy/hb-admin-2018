@@ -26,8 +26,8 @@ import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { buttonsBottomWrapperStyles } from "./viewstyles.js";
 import {
   getScrollHeightPercent,
-  MOBILEWIDTHCUTOFF,
-  HEADERFOOTERSIZE
+  MOBILEWIDTHCUTOFF
+  // HEADERFOOTERSIZE
 } from "../constants/general.js";
 
 class AdjustTimesModal extends Component {
@@ -140,7 +140,7 @@ class ScheduleWrapper extends Component {
   render() {
     const {
       adjustAppearances,
-      adjustAppearancesSave,
+      // adjustAppearancesSave,
       deleteAppearances,
       isLoggedIn
     } = this.props;

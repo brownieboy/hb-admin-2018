@@ -2,8 +2,8 @@ import { put, takeEvery } from "redux-saga/effects";
 import {
   actionTypes as publishActionTypes,
   savePublishRequest,
-  savePublishSucceeded,
-  savePublishFailed
+  savePublishSucceeded
+  // savePublishFailed
 } from "../publishReducer.js";
 import firebaseApp from "../../apis/firebase-dev.js";
 
@@ -11,9 +11,9 @@ import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 import {
   notifySuccess,
-  notifyError,
-  notifyWarning,
-  notifyInfo
+  notifyError
+  // notifyWarning,
+  // notifyInfo
 } from "../react-redux-notify-helpers.js";
 
 function* saveData(action) {

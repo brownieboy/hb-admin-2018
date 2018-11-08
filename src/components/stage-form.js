@@ -13,7 +13,7 @@ import { OptionsForArray } from "../helper-functions/field-helpers.js";
 
 import {
   formFieldsWrapperStyles,
-  helpInfoTextStyles,
+  // helpInfoTextStyles,
   blurbFieldRows
 } from "./formstyles.js";
 
@@ -141,7 +141,7 @@ class StageForm extends Component {
               handleBlur,
               handleSubmit
             } = props;
-            const { cardFileInfo, thumbFileInfo } = this.state;
+            // const { cardFileInfo, thumbFileInfo } = this.state;
             return (
               <Fragment>
                 <form onSubmit={handleSubmit}>

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { ListGroup, ListGroupItem } from "reactstrap";
@@ -8,11 +8,11 @@ import PhotoCard from "../components/photo-card.js";
 // import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
 
 import {
-  buttonsBottomWrapperStyles,
+  // buttonsBottomWrapperStyles,
   listGroupItemContentWrapperStyles,
   listGroupItemStyles,
   listGroupStyles,
-  itemTextSpan,
+  // itemTextSpan,
   listGroupItemColStyles
 } from "./viewstyles.js";
 

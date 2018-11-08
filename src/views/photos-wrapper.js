@@ -2,14 +2,8 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import {
   Button,
-  FormGroup,
   Input,
-  Label,
-  ListGroup,
-  ListGroupItem,
   Nav,
-  NavItem,
-  NavLink,
   TabContent,
   TabPane
 } from "reactstrap";
@@ -19,15 +13,15 @@ import { Link } from "react-router-dom";
 // import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
 import { getChecked } from "../components/lifecycleextras.js";
 import ConfirmModal from "../components/confirm-modal.js";
-import AlertModal from "../components/alert-modal.js";
+// import AlertModal from "../components/alert-modal.js";
 import { ViewTabItemLink } from "../components/react-strap-tabs.js";
 
 import {
-  buttonsBottomWrapperStyles,
-  listGroupItemContentWrapperStyles,
-  listGroupItemStyles,
-  listGroupStyles,
-  itemTextSpan
+  buttonsBottomWrapperStyles
+  // listGroupItemContentWrapperStyles,
+  // listGroupItemStyles,
+  // listGroupStyles,
+  // itemTextSpan
 } from "./viewstyles.js";
 
 import {

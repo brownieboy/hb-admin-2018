@@ -1,11 +1,11 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
-import firebaseApp, { reduxSagaFirebase } from "../../apis/firebase-dev.js";
+import { reduxSagaFirebase } from "../../apis/firebase-dev.js";
 import {
   notifySuccess,
   notifyError,
-  notifyWarning,
-  notifyInfo
+  notifyWarning
+  // notifyInfo
 } from "../react-redux-notify-helpers.js";
 
 import {
@@ -34,7 +34,7 @@ import {
 // import firebaseApp from "../../apis/firebase-dev.js";
 
 import {
-  types as globalTypes,
+  // types as globalTypes,
   getPhotoStoragePath
 } from "../../constants/firebasePaths.js";
 

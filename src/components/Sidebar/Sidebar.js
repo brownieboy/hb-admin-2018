@@ -142,7 +142,7 @@ class Sidebar extends Component {
         <li key={key} className={this.activeRoute(item.url, props)}>
           <a
             className="nav-link nav-dropdown-toggle"
-            href="#"
+            href="/"
             onClick={this.handleClick}
           >
             <i className={item.icon} />

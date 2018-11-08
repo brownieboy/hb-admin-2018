@@ -6,7 +6,7 @@ import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import {
   buttonsBottomWrapperStyles,
   itemTextSpan,
-  listGroupItemContentWrapperStyles,
+  // listGroupItemContentWrapperStyles,
   listGroupItemStyles,
   listGroupStyles
 } from "./viewstyles.js";

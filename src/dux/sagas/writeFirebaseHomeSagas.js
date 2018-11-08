@@ -2,15 +2,15 @@ import { put, takeEvery } from "redux-saga/effects";
 import {
   actionTypes as homeActionTypes,
   saveHomeRequest,
-  saveHomeSucceeded,
-  saveHomeFailed
+  saveHomeSucceeded
+  // saveHomeFailed
 } from "../homeReducer.js";
 
 import {
   notifySuccess,
-  notifyError,
-  notifyWarning,
-  notifyInfo
+  notifyError
+  // notifyWarning,
+  // notifyInfo
 } from "../react-redux-notify-helpers.js";
 
 import firebaseApp from "../../apis/firebase-dev.js";
