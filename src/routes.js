@@ -171,7 +171,7 @@ const DatesEditForm = Loadable({
 });
 
 const routes = [
-  { path: "/", exact: true, name: "Home", component: EditHomePage },
+  { path: "/edithomepage", exact: true, name: "Home", component: EditHomePage },
   { path: "/homepage", exact: true, name: "HomePage", component: EditHomePage },
   { path: "/bands", exact: true, name: "Bands", component: Bands },
   { path: "/schedule", exact: true, name: "Schedule", component: Schedule },

@@ -54,7 +54,7 @@ class Layout extends Component {
                     />
                   ) : null;
                 })}
-                <Redirect from="/" to="/edithomeform" />
+                <Redirect from="/" to="/edithomepage" />
               </Switch>
             </Container>
           </main>
