@@ -88,7 +88,7 @@ class AppearanceForm extends Component {
           bandId: matchingInfo.bandId,
           stageId: matchingInfo.stageId,
           isCancelled: matchingInfo.isCancelled,
-          dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "YYYY-MM-DD"),
+          dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "yyyy-MM-dd"),
           id: matchingInfo.id
         };
         const timeStart = new Date(matchingInfo.dateTimeStart);

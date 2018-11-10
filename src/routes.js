@@ -72,13 +72,22 @@ const Photos = Loadable({
 
 // BandFormNewConn
 const BandFormNew = Loadable({
-  loader: () => import("./views/bands-conn.js"),
+  loader: () => import("./containers/band-form-conn.js"),
   render(loaded, props) {
     let Component = loaded.BandFormNewConn;
     return <Component {...props} />;
   },
   loading: Loading
 });
+const BandFormEdit = Loadable({
+  loader: () => import("./containers/band-form-conn.js"),
+  render(loaded, props) {
+    let Component = loaded.BandFormEditConn;
+    return <Component {...props} />;
+  },
+  loading: Loading
+});
+
 const EditHomePage = Loadable({
   loader: () => import("./containers/home-form-conn.js"),
   loading: Loading
@@ -103,14 +112,51 @@ const StageFormEdit = Loadable({
   }
 });
 
-let ScheduleFormNew;
-Loadable({
+const ScheduleFormNew = Loadable({
   loader: () => import("./containers/schedule-form-conn.js"),
-  render(loaded) {
-    ScheduleFormNew = loaded.ScheduleFormNewConn;
+  render(loaded, props) {
+    let Component = loaded.ScheduleFormNewConn;
+    return <Component {...props} />;
   },
   loading: Loading
 });
+
+const ScheduleFormEdit = Loadable({
+  loader: () => import("./containers/schedule-form-conn.js"),
+  render(loaded, props) {
+    let Component = loaded.ScheduleFormEditConn;
+    return <Component {...props} />;
+  },
+  loading: Loading
+});
+
+const PhotoFormNew = Loadable({
+  loader: () => import("./containers/photo-form-conn.js"),
+  render(loaded, props) {
+    let Component = loaded.PhotoFormNewConn;
+    return <Component {...props} />;
+  },
+  loading: Loading
+});
+
+const PhotoFormEdit = Loadable({
+  loader: () => import("./containers/photo-form-conn.js"),
+  render(loaded, props) {
+    let Component = loaded.PhotoFormEditConn;
+    return <Component {...props} />;
+  },
+  loading: Loading
+});
+
+Loadable({
+  loader: () => import("./containers/schedule-form-conn.js"),
+  render(loaded, props) {
+    let Component = loaded.ScheduleFormEditConn;
+    return <Component {...props} />;
+  },
+  loading: Loading
+});
+
 const LoginEmailForm = Loadable({
   loader: () => import("./containers/loginemailform-conn.js"),
   loading: Loading
@@ -149,10 +195,22 @@ const routes = [
     component: BandFormNew
   },
   {
+    path: "/bandform/:id",
+    exact: true,
+    name: "BandFormEdit",
+    component: BandFormEdit
+  },
+  {
     path: "/scheduleform",
     exact: true,
     name: "ScheduleFormNew",
     component: ScheduleFormNew
+  },
+  {
+    path: "/scheduleform/:id",
+    exact: true,
+    name: "ScheduleFormEdit",
+    component: ScheduleFormEdit
   },
   {
     path: "/loginemailform",
@@ -161,6 +219,18 @@ const routes = [
     component: LoginEmailForm
   },
   { path: "/photos", exact: true, name: "Photos", component: Photos },
+    {
+    path: "/photoform",
+    exact: true,
+    name: "PhotoFormNew",
+    component: PhotoFormNew
+  },
+  {
+    path: "/photoform/:id",
+    exact: true,
+    name: "PhtoFormEdit",
+    component: PhotoFormEdit
+  },
   {
     path: "/contactuspage",
     exact: true,
