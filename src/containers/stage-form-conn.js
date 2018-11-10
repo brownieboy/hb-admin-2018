@@ -65,4 +65,3 @@ export const StageFormEditConn = connect(
   mapDispatchToPropsEdit
 )(StageForm);
 
-export default StageFormNewConn;

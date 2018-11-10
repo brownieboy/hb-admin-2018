@@ -83,20 +83,25 @@ const EditHomePage = Loadable({
   loader: () => import("./containers/home-form-conn.js"),
   loading: Loading
 });
-const StageForm = Loadable({
-  loader: () => import("./containers/stage-form-conn.js"),
-  loading: Loading
-});
 
-/*
-Loadable({
-  loader: () => import('./my-component'),
+// This is how you load named exports (i.e. not default exports) dynamically
+const StageFormNew = Loadable({
+  loader: () => import("./containers/stage-form-conn.js"),
+  loading: Loading,
   render(loaded, props) {
-    let Component = loaded.namedExport;
-    return <Component {...props}/>;
+    let Component = loaded.StageFormNewConn;
+    return <Component {...props} />;
   }
 });
- */
+
+const StageFormEdit = Loadable({
+  loader: () => import("./containers/stage-form-conn.js"),
+  loading: Loading,
+  render(loaded, props) {
+    let Component = loaded.StageFormEditConn;
+    return <Component {...props} />;
+  }
+});
 
 let ScheduleFormNew;
 Loadable({
@@ -129,7 +134,13 @@ const routes = [
     path: "/stageform",
     exact: true,
     name: "StageForm",
-    component: StageForm
+    component: StageFormNew
+  },
+  {
+    path: "/stageform/:id",
+    exact: true,
+    name: "StageFormEdit",
+    component: StageFormEdit
   },
   {
     path: "/bandform",
