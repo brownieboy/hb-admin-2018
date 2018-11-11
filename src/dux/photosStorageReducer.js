@@ -38,20 +38,13 @@ const photoStorageReducer = (
     case SEND_PHOTO_STORAGE_START:
       // Push a new photo update object onto the array
       // Note.  Need to check if there's on already.
-      console.log("photosStorageReducer.js, SEND_PHOTO_STORAGE_START");
-      newState = {
-        ...state
-      };
-
-/*
-      newState = {
+      // console.log("photosStorageReducer.js, SEND_PHOTO_STORAGE_START");
+      return {
         ...state,
         uploadingPhotosList: [
           ...state.uploadingPhotosList,
-          // New photo update object.  Just overwrite the fields that we
-          // we need, and leave the rest at their initial defaults.
-          ...initialIndividualPhotoState,
           {
+            ...initialIndividualPhotoState,
             updateId: payload.updateId,
             photoStatus: "posting",
             photoFileInfo: payload.fileInfo,
@@ -59,9 +52,6 @@ const photoStorageReducer = (
           }
         ]
       };
-*/
-      console.log("newState calced, returning now");
-      return newState;
 
     case UPDATE_PHOTO_STORAGE_STATUS:
       matchingPhotoIndex = state.uploadingPhotosList.findIndex(
