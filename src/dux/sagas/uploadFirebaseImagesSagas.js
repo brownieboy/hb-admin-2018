@@ -109,7 +109,7 @@ function* deletePhotosFromStorage(deletePhotosAction) {
   // );
   // yield console.log(deletePhotosAction.payload);
   // const storageRef = firebaseApp.storage().ref();
-  let filePathToDelete,  deleteResponse;
+  let filePathToDelete, deleteResponse;
 
   //   const responseArray = yield newData.map(newPost => call(dummyPromise, 500, newData[0]));
   const responseArray = yield deletePhotosAction.payload.map(function*(
@@ -152,7 +152,6 @@ function* deletePhotosFromStorage(deletePhotosAction) {
   // console.log(responseArray);
 
   return responseArray;
-
 }
 
 const uploadFirebaseImagesSagas = [

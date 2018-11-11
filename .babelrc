@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "react", "env"
+  ],
+  "plugins": ["transform-object-rest-spread", "transform-class-properties", "date-fns",["transform-imports", {
+            "reactstrap": {
+                "transform": "reactstrap/lib/${member}",
+                "preventFullImport": true
+            }
+        }]]
+}
