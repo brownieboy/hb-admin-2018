@@ -2,20 +2,18 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import {
-  Badge,
+  // Badge,
   Button,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Nav,
-  NavItem,
-  NavLink
+  // DropdownItem,
+  // DropdownMenu,
+  // DropdownToggle,
+  Nav
+  // NavItem,
+  // NavLink
 } from "reactstrap";
 import PropTypes from "prop-types";
 
-import {
-  AppSidebarToggler
-} from "@coreui/react";
+import { AppSidebarToggler } from "@coreui/react";
 
 import PublishButton from "..//publishbutton-conn.js";
 
@@ -42,7 +40,8 @@ class DefaultHeader extends Component {
             >
               Login Page
             </Link>
-          </Button> | 
+          </Button>{" "}
+          |
           <span style={{ marginLeft: 5 }}>
             <PublishButton />
           </span>
