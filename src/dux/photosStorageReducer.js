@@ -32,13 +32,19 @@ const photoStorageReducer = (
   action
 ) => {
   const { type, payload } = action;
-  let matchingPhotoIndex;
+  let matchingPhotoIndex, newState;
   // let matchingPhotoIndex, updatedPhotoObj;
   switch (type) {
     case SEND_PHOTO_STORAGE_START:
       // Push a new photo update object onto the array
       // Note.  Need to check if there's on already.
-      return {
+      console.log("photosStorageReducer.js, SEND_PHOTO_STORAGE_START");
+      newState = {
+        ...state
+      };
+
+/*
+      newState = {
         ...state,
         uploadingPhotosList: [
           ...state.uploadingPhotosList,
@@ -53,6 +59,9 @@ const photoStorageReducer = (
           }
         ]
       };
+*/
+      console.log("newState calced, returning now");
+      return newState;
 
     case UPDATE_PHOTO_STORAGE_STATUS:
       matchingPhotoIndex = state.uploadingPhotosList.findIndex(
@@ -120,7 +129,8 @@ const photoStorageReducer = (
 };
 
 // Getters are just functions, so keep it simple here to avoid unnecessary renders
-export const getUploadingPhotosList = state => state.photoStorageState.uploadingPhotosList;
+export const getUploadingPhotosList = state =>
+  state.photoStorageState.uploadingPhotosList;
 
 // Action creators
 export const sendPhotoStorageStart = (updateId, fileInfo) => ({
