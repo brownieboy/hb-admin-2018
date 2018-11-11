@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import "firebase/app";
 import "firebase/auth";
 import "firebase/database";
-import "firebase/firestore";
+import "firebase/storage";
 import ReduxSagaFirebase from "redux-saga-firebase";
 
 console.log("firebase config dev");
