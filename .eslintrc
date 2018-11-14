@@ -1,0 +1,48 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "plugins": ["react"],
+    "extends": ["eslint", "plugin:react/recommended"],
+    "rules": {
+        "func-style": [
+            2,
+            "declaration",
+            {
+                "allowArrowFunctions": true
+            }
+        ],
+        "class-methods-use-this": "off",
+        "function-paren-newline": "off",
+        "generator-star-spacing": "off",
+        "indent": ["warn", 2, { "SwitchCase": 1 }],
+        "require-jsdoc": "off",
+        "lines-around-comment": "off",
+        "newline-after-var": "off",
+        "node/no-unsupported-features/es-syntax": "off",
+        "no-console": "warn",
+        "no-invalid-this": "off",
+        "no-nested-ternary": "off",
+        "no-multi-spaces": "warn",
+        "no-trailing-spaces": "warn",
+        "no-unused-vars": "warn",
+        "no-confusing-arrow": [
+            "warn",
+            {
+                "allowParens": true
+            }
+        ],
+        "padding-line-between-statements": "off",
+        "react/prop-types": "warn"
+    },
+    "overrides": [
+        {
+            "files": ["webpack.config.js", "test/**/*.js"],
+            "rules": {
+                "node/no-unpublished-require": "off"
+            }
+        }
+    ]
+}

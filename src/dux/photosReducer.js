@@ -106,8 +106,8 @@ const photosReducer = (state = defaultState, action) => {
       return { ...state, photosList: newPhotosList };
 
     case DELETE_PHOTOS:
-      newPhotosList = state.photosList.filter(
-        photoMember => action.payload.includes(photoMember.id)
+      newPhotosList = state.photosList.filter(photoMember =>
+        action.payload.includes(photoMember.id)
       );
       return { ...state, photosList: newPhotosList };
 
@@ -122,7 +122,7 @@ const photosReducer = (state = defaultState, action) => {
 };
 
 // Selectors
-// const getAllPhotos = state => state.photosState.photosList; 
+// const getAllPhotos = state => state.photosState.photosList;
 
 // Getters don't use redux-select, so are bad, but flexible
 export const getPhotoInfoForId = (state, photoId) =>
