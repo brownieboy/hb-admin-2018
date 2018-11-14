@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 
+import { Notify } from "react-redux-notify";
+import "react-redux-notify/dist/ReactReduxNotify.css";
+
 import {
   AppAside,
   // AppBreadcrumb,
@@ -25,6 +28,16 @@ import Header from "./Header";
 // console.log("Layout.js, routes:");
 // console.log(routes);
 
+// const customNotifyStyles = {
+//   containerTopRightBelowBar: "containerTopRightBelowBar"
+// };
+
+const customNotifyStyles = {
+  containerTopCenter: "containerTopCenter"
+};
+
+// <Notify customStyles={myCustomStyles} position={'CustomBottomPosition'}/>
+
 class Layout extends Component {
   render() {
     return (
@@ -42,6 +55,10 @@ class Layout extends Component {
           </AppSidebar>
           <main className="main">
             <Container fluid>
+              <Notify
+                position="containerTopCenter"
+                customStyles={customNotifyStyles}
+              />
               <Switch>
                 {routes.map((route, idx) => {
                   return route.component ? (

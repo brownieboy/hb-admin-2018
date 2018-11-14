@@ -49,5 +49,3 @@ export const notifyWarning = (message = "No message supplied") =>
     canDismiss: true,
     icon: <i className="fa fa-check" />
   });
-
-
