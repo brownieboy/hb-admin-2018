@@ -32,25 +32,40 @@ const photoStorageReducer = (
   action
 ) => {
   const { type, payload } = action;
-  let matchingPhotoIndex, newState;
-  // let matchingPhotoIndex, updatedPhotoObj;
+  let matchingPhotoIndex, newPhotoObj;
   switch (type) {
     case SEND_PHOTO_STORAGE_START:
       // Push a new photo update object onto the array
       // Note.  Need to check if there's on already.
       // console.log("photosStorageReducer.js, SEND_PHOTO_STORAGE_START");
+
+      newPhotoObj = {
+        ...initialIndividualPhotoState,
+        updateId: payload.updateId,
+        photoStatus: "posting",
+        photoFileInfo: payload.fileInfo,
+        photoProgress: 0
+      };
+
+      matchingPhotoIndex = state.uploadingPhotosList.findIndex(
+        memberObj => memberObj.updateId === payload.updateId
+      );
+      // If the "new" on is actually already in the array then
+      // we replace it...
+      if (matchingPhotoIndex >= 0) {
+        return {
+          ...state,
+          uploadingPhotosList: [
+            ...state.uploadingPhotosList.slice(0, matchingPhotoIndex),
+            newPhotoObj,
+            ...state.uploadingPhotosList.slice(matchingPhotoIndex + 1)
+          ]
+        };
+      }
+      // ...otherwise we just append it to the array
       return {
         ...state,
-        uploadingPhotosList: [
-          ...state.uploadingPhotosList,
-          {
-            ...initialIndividualPhotoState,
-            updateId: payload.updateId,
-            photoStatus: "posting",
-            photoFileInfo: payload.fileInfo,
-            photoProgress: 0
-          }
-        ]
+        uploadingPhotosList: [...state.uploadingPhotosList, newPhotoObj]
       };
 
     case UPDATE_PHOTO_STORAGE_STATUS:
