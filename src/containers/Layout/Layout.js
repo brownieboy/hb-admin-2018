@@ -4,6 +4,7 @@ import { Container } from "reactstrap";
 
 import { Notify } from "react-redux-notify";
 import "react-redux-notify/dist/ReactReduxNotify.css";
+import "../../styles/notification-styles.css";
 
 import {
   AppAside,
@@ -33,10 +34,22 @@ import Header from "./Header";
 // };
 
 const customNotifyStyles = {
-  containerTopCenter: "containerTopCenter"
+  containerTopRightBelowBar: "containerTopRightBelowBar"
 };
 
 // <Notify customStyles={myCustomStyles} position={'CustomBottomPosition'}/>
+
+/*
+.CustomBottomPosition {
+  ....
+  ....
+}
+import {Notify} from 'react-redux-notify';
+const myCustomStyles = {
+  containerCustomBottomPosition: 'CustomBottomPosition'
+}
+<Notify customStyles={myCustomStyles} position={'CustomBottomPosition'}/>
+ */
 
 class Layout extends Component {
   render() {
@@ -56,7 +69,7 @@ class Layout extends Component {
           <main className="main">
             <Container fluid>
               <Notify
-                position="containerTopCenter"
+                position="TopRightBelowBar"
                 customStyles={customNotifyStyles}
               />
               <Switch>

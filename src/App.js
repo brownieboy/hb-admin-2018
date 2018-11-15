@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
-import { Notify } from "react-redux-notify";
 import "react-redux-notify/dist/ReactReduxNotify.css";
-
 import "./App.scss";
 import configureStore from "./store/configureStore.js";
 
