@@ -11,7 +11,7 @@ import { getPhotoStoragePath } from "../constants/firebasePaths.js";
 import { CardImage, ThumbImage } from "./photo-display.js";
 
 import {
-  formFieldsWrapperStyles,
+  formFieldsWrapperStyles
   // helpInfoTextStyles,
   // blurbFieldRows
 } from "./formstyles.js";
@@ -58,12 +58,12 @@ class PhotoForm extends Component {
     this.props.sendStorageStart(storageData);
   };
 
-  componentWillUnmount() {
-    // console.log("Clearing from componentWillUnmount");
-    if (this.props.saveBandClear) {
-      this.props.saveBandClear(); // Clear saveSuccess status so we don't loop
-    }
-  }
+  // componentWillUnmount() {
+  //   // console.log("Clearing from componentWillUnmount");
+  //   if (this.props.saveBandClear) {
+  //     this.props.saveBandClear(); // Clear saveSuccess status so we don't loop
+  //   }
+  // }
 
   render() {
     const {

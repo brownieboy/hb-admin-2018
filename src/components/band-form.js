@@ -4,6 +4,7 @@ import { FieldArray, Formik } from "formik";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
+import shortId from "shortid";
 
 import { OptionsForArray } from "../helper-functions/field-helpers.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
@@ -60,6 +61,45 @@ class BandForm extends Component {
     // console.log("handleThumbFileChange");
     // console.log(event.target.files[0]);
     this.setState({ cardFileInfo: event.target.files[0] });
+  };
+
+  /*
+assocEntityId(pin): "bloe"
+assocEntityName(pin): "Black Leaves of Envy"
+fileName(pin): "blackleaves-logo.jpg"
+filePath(pin): "/img/bands/thumbstest/blackleaves-logo.jpg"
+fullUrl(pin): "https://firebasestorage.googleapis.com/v0/b/helstonbury-cadbf.appspot.com/o/img%2Fbands%2Fthumbstest%2Fblackleaves-logo.jpg?alt=media&token=34d28539-a46e-4b71-aa42-e443f78eb469"
+id(pin): "img-d5FvX5HirH"
+photoType(pin): "thumb"
+type(pin): "band"
+matchingThumbs(pin):
+
+this is what was sent
+fileName(pin): "unknown"
+id(pin): "img-JfEJWZZAz"
+fullUrl(pin): ""
+type(pin): "band"
+photoType(pin): "thumb"
+assocEntityId(pin): "courtneybarnett"
+
+
+ */
+
+  handNewCardImageClick = (photoType, values) => {
+    const { saveNewPhoto } = this.props;
+    console.log("handNewCardImageClick");
+    // console.log(values);
+    const newPhotoObj = {
+      id: `img-${shortId.generate()}`,
+      assocEntityId: values.id,
+      fileName: "unknown",
+      fullUrl: "",
+      type: "band",
+      photoType
+    };
+    console.log("newPhotoObj");
+    console.log(newPhotoObj);
+    saveNewPhoto(newPhotoObj);
   };
 
   componentWillUnmount() {
@@ -295,11 +335,19 @@ class BandForm extends Component {
                     {errors.facebookId && <div>{errors.facebookId}</div>}
                     <span style={helpInfoTextStyles}>
                       To get the page ID, paste FB page URL in at{" "}
-                      <a href="https://findmyfbid.com/" target="_blank" rel="noopener noreferrer">
+                      <a
+                        href="https://findmyfbid.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         https://findmyfbid.com/
                       </a>{" "}
                       or{" "}
-                      <a href="https://lookup-id.com/" target="_blank" rel="noopener noreferrer">
+                      <a
+                        href="https://lookup-id.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         https://lookup-id.com/
                       </a>
                     </span>
@@ -323,7 +371,20 @@ class BandForm extends Component {
                   </Button>
                   <hr />
                   <h2>Images</h2>
-                  <div name="imagesWrapper" style={{ marginBottom: 100 }}>
+                  <Button
+                    type="button"
+                    onClick={() => this.handNewCardImageClick("thumb", values)}
+                  >
+                    <i
+                      className="fa fa-image fa-lg"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Create new thumbnail image
+                  </Button>
+                  <div
+                    name="imagesWrapper"
+                    style={{ marginBottom: 100, marginTop: 10 }}
+                  >
                     <Input
                       type="select"
                       name="thumbPhotoId"
@@ -428,6 +489,7 @@ BandForm.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveBandClear: PropTypes.func,
+  saveNewPhoto: PropTypes.func.isRequired,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   sendStorageCardStart: PropTypes.func,

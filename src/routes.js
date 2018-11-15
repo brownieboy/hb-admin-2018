@@ -16,62 +16,62 @@ import "./scss/style.scss";
 
 // Containers
 // import Full from "./containers/Full/";
-import Loadable from "react-loadable";
+import loadable from "react-loadable";
 // import DefaultLayout from "./containers/DefaultLayout";
 
 function Loading() {
   return <div>Loading...</div>;
 }
 
-// const Breadcrumbs = Loadable({
+// const Breadcrumbs = loadable({
 //   loader: () => import("./views/Base/Breadcrumbs"),
 //   loading: Loading
 // });
-// const Header = Loadable({
+// const Header = loadable({
 //   loader: () => import("../../components/Header/"),
 //   loading: Loading
 // });
-// const Sidebar = Loadable({
+// const Sidebar = loadable({
 //   loader: () => import("../../components/Sidebar/"),
 //   loading: Loading
 // });
-// const Breadcrumb = Loadable({
+// const Breadcrumb = loadable({
 //   loader: () => import("../../components/Breadcrumb/"),
 //   loading: Loading
 // });
-// const Aside = Loadable({
+// const Aside = loadable({
 //   loader: () => import("../../components/Aside/"),
 //   loading: Loading
 // });
-// const Footer = Loadable({
+// const Footer = loadable({
 //   loader: () => import("../../components/Footer/"),
 //   loading: Loading
 // });
 
-// const Dashboard = Loadable({
+// const Dashboard = loadable({
 //   loader: () => import("../../views/Dashboard/"),
 //   loading: Loading
 // });
 
-const Bands = Loadable({
+const Bands = loadable({
   loader: () => import("./views/bands-conn.js"),
   loading: Loading
 });
-const Schedule = Loadable({
+const Schedule = loadable({
   loader: () => import("./views/schedule-conn.js"),
   loading: Loading
 });
-const Stages = Loadable({
+const Stages = loadable({
   loader: () => import("./views/stages-conn.js"),
   loading: Loading
 });
-const Photos = Loadable({
+const Photos = loadable({
   loader: () => import("./views/photos-conn.js"),
   loading: Loading
 });
 
 // BandFormNewConn
-const BandFormNew = Loadable({
+const BandFormNew = loadable({
   loader: () => import("./containers/band-form-conn.js"),
   render(loaded, props) {
     let Component = loaded.BandFormNewConn;
@@ -79,7 +79,7 @@ const BandFormNew = Loadable({
   },
   loading: Loading
 });
-const BandFormEdit = Loadable({
+const BandFormEdit = loadable({
   loader: () => import("./containers/band-form-conn.js"),
   render(loaded, props) {
     let Component = loaded.BandFormEditConn;
@@ -88,13 +88,13 @@ const BandFormEdit = Loadable({
   loading: Loading
 });
 
-const EditHomePage = Loadable({
+const EditHomePage = loadable({
   loader: () => import("./containers/home-form-conn.js"),
   loading: Loading
 });
 
 // This is how you load named exports (i.e. not default exports) dynamically
-const StageFormNew = Loadable({
+const StageFormNew = loadable({
   loader: () => import("./containers/stage-form-conn.js"),
   loading: Loading,
   render(loaded, props) {
@@ -103,7 +103,7 @@ const StageFormNew = Loadable({
   }
 });
 
-const StageFormEdit = Loadable({
+const StageFormEdit = loadable({
   loader: () => import("./containers/stage-form-conn.js"),
   loading: Loading,
   render(loaded, props) {
@@ -112,7 +112,7 @@ const StageFormEdit = Loadable({
   }
 });
 
-const ScheduleFormNew = Loadable({
+const ScheduleFormNew = loadable({
   loader: () => import("./containers/schedule-form-conn.js"),
   render(loaded, props) {
     let Component = loaded.ScheduleFormNewConn;
@@ -121,7 +121,7 @@ const ScheduleFormNew = Loadable({
   loading: Loading
 });
 
-const ScheduleFormEdit = Loadable({
+const ScheduleFormEdit = loadable({
   loader: () => import("./containers/schedule-form-conn.js"),
   render(loaded, props) {
     let Component = loaded.ScheduleFormEditConn;
@@ -130,7 +130,7 @@ const ScheduleFormEdit = Loadable({
   loading: Loading
 });
 
-const PhotoFormNew = Loadable({
+const PhotoFormNew = loadable({
   loader: () => import("./containers/photo-form-conn.js"),
   render(loaded, props) {
     let Component = loaded.PhotoFormNewConn;
@@ -139,7 +139,7 @@ const PhotoFormNew = Loadable({
   loading: Loading
 });
 
-const PhotoFormEdit = Loadable({
+const PhotoFormEdit = loadable({
   loader: () => import("./containers/photo-form-conn.js"),
   render(loaded, props) {
     let Component = loaded.PhotoFormEditConn;
@@ -148,7 +148,7 @@ const PhotoFormEdit = Loadable({
   loading: Loading
 });
 
-Loadable({
+loadable({
   loader: () => import("./containers/schedule-form-conn.js"),
   render(loaded, props) {
     let Component = loaded.ScheduleFormEditConn;
@@ -157,15 +157,15 @@ Loadable({
   loading: Loading
 });
 
-const LoginEmailForm = Loadable({
+const LoginEmailForm = loadable({
   loader: () => import("./containers/loginemailform-conn.js"),
   loading: Loading
 });
-const ContactUsPage = Loadable({
+const ContactUsPage = loadable({
   loader: () => import("./containers/contactus-form-conn.js"),
   loading: Loading
 });
-const DatesEditForm = Loadable({
+const DatesEditForm = loadable({
   loader: () => import("./containers/dates-form-conn.js"),
   loading: Loading
 });
@@ -219,7 +219,7 @@ const routes = [
     component: LoginEmailForm
   },
   { path: "/photos", exact: true, name: "Photos", component: Photos },
-    {
+  {
     path: "/photoform",
     exact: true,
     name: "PhotoFormNew",

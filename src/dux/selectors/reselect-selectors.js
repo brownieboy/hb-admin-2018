@@ -74,6 +74,7 @@ export const selectPhotosEnhanced = createSelector(
           );
         }
       }
+      console.warn("Mutation problem here.");
       if (matchingEntityObj) {
         photoMember.assocEntityName = matchingEntityObj.name;
       }
