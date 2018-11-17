@@ -85,9 +85,9 @@ assocEntityId(pin): "courtneybarnett"
 
  */
 
-  handNewCardImageClick = (photoType, values) => {
-    const { saveNewPhoto } = this.props;
-    console.log("handNewCardImageClick");
+  handNewImageClick = (photoType, values) => {
+    const { saveNewPhoto, saveNewPhotoAndOpenInNewUI } = this.props;
+    console.log("handNewImageClick");
     // console.log(values);
     const newPhotoObj = {
       id: `img-${shortId.generate()}`,
@@ -99,7 +99,11 @@ assocEntityId(pin): "courtneybarnett"
     };
     console.log("newPhotoObj");
     console.log(newPhotoObj);
-    saveNewPhoto(newPhotoObj);
+    const { history } = this.props;
+    // console.log(history);
+
+    // saveNewPhoto(newPhotoObj);
+    saveNewPhotoAndOpenInNewUI(newPhotoObj, history);
   };
 
   componentWillUnmount() {
@@ -373,7 +377,7 @@ assocEntityId(pin): "courtneybarnett"
                   <h2>Images</h2>
                   <Button
                     type="button"
-                    onClick={() => this.handNewCardImageClick("thumb", values)}
+                    onClick={() => this.handNewImageClick("thumb", values)}
                   >
                     <i
                       className="fa fa-image fa-lg"

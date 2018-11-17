@@ -19,6 +19,8 @@ import {
 import {
   actionTypes as photosActionTypes,
   deletePhotos,
+  SAVE_NEW_PHOTO_AND_OPEN_IN_UI,
+  saveNewPhoto,
   savePhotoRequest,
   savePhotoSucceeded,
   savePhotoFailed
@@ -65,6 +67,16 @@ function* saveData() {
     yield put(savePhotoFailed(firebaseError));
     yield put(notifyError(`Photo meta saving: ${firebaseError}`));
   }
+}
+
+function* saveAndOpenInUI(data) {
+  console.log("saveAndOpenInUI data:");
+  console.log(data);
+  const { photoInfo, history } = data.payload;
+  yield put(saveNewPhoto(photoInfo));
+  yield console.log("Saved: now to open it!, history:");
+  yield console.log(history);
+  history.push(`/photoform/${photoInfo.id}`);
 }
 
 function* deletePhotosProcess(deletePhotosAction) {
@@ -146,7 +158,8 @@ const writeFirebaseSagas = [
   takeEvery(photosActionTypes.SAVE_NEW_PHOTO, saveData),
   takeEvery(photosActionTypes.SAVE_EDITED_PHOTO, saveData),
   takeEvery(photosActionTypes.DELETE_PHOTOS, saveData),
-  takeEvery(photosActionTypes.START_DELETE_PHOTOS_PROCESS, deletePhotosProcess)
+  takeEvery(photosActionTypes.START_DELETE_PHOTOS_PROCESS, deletePhotosProcess),
+  takeEvery(SAVE_NEW_PHOTO_AND_OPEN_IN_UI, saveAndOpenInUI)
 ];
 
 export default writeFirebaseSagas;

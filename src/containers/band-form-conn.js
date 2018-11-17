@@ -17,7 +17,8 @@ import {
 import { getAppearancesForBandId } from "../dux/appearancesReducer.js";
 import { selectCurrentYear, yearsAvailable } from "../dux/datesReducer.js";
 import {
-  saveNewPhoto
+  saveNewPhoto,
+  saveNewPhotoAndOpenInNewUI,
 } from "../dux/photosReducer.js";
 
 import {
@@ -71,7 +72,8 @@ const mapDispatchToPropsEdit = dispatch =>
     {
       notifyInfo,
       submitDataToServer: saveEditedBand,
-      saveNewPhoto
+      saveNewPhoto,
+      saveNewPhotoAndOpenInNewUI
       // sendStorageThumbStart: bandStartThumbFileUpload,
       // sendStorageCardStart: bandStartCardFileUpload
     },

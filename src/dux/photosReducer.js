@@ -22,6 +22,7 @@ export const START_PHOTO_FILE_UPLOAD = "START_PHOTO_FILE_UPLOAD";
 const UPDATE_PHOTO_FILE_URL = "UPDATE_PHOTO_FILE_URL";
 const START_DELETE_PHOTOS_PROCESS = "START_DELETE_PHOTOS_PROCESS";
 const DELETE_PHOTOS = "DELETE_PHOTOS";
+export const SAVE_NEW_PHOTO_AND_OPEN_IN_UI = "SAVE_NEW_PHOTO_AND_OPEN_IN_UI";
 
 export const actionTypes = {
   SAVE_NEW_PHOTO,
@@ -190,6 +191,15 @@ export const startDeletePhotosProcess = photoIdsArray => ({
 export const deletePhotos = photoIdsArray => ({
   type: DELETE_PHOTOS,
   payload: photoIdsArray
+});
+
+// Action that is listened to by the sagas.
+export const saveNewPhotoAndOpenInNewUI = (photoInfo, history) => ({
+  type: SAVE_NEW_PHOTO_AND_OPEN_IN_UI,
+  payload: {
+    photoInfo,
+    history
+  }
 });
 
 export const photosDuxActions = {
