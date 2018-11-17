@@ -95,12 +95,13 @@ const photosReducer = (state = defaultState, action) => {
       idx = state.photosList.findIndex(
         photoObj => photoObj.id === action.payload.id
       );
-      currentPhotoObj = state.photosList.slice()[idx];
-      currentPhotoObj.fullUrl = action.payload.downloadUrl;
-      currentPhotoObj.filePath = action.payload.filePath;
       newPhotosList = [
         ...state.photosList.slice(0, idx),
-        currentPhotoObj,
+        {
+          ...state.photosList[idx],
+          fullUrl: action.payload.downloadUrl,
+          filePath: action.payload.filePath
+        },
         ...state.photosList.slice(idx + 1)
       ];
       return { ...state, photosList: newPhotosList };
