@@ -111,8 +111,38 @@ const appearancesReducer = (
 
     case ADJUST_APPEARANCE_TIMES:
       // Adjust start and end times up and down by a set number of minutes.
-      newAppearancesList = state.appearancesList.slice();
+      // newAppearancesList = state.appearancesList.slice();
+      newAppearancesList = state.appearancesList.map(appearanceMember => {
+        // console.log("appearanceMember frozen");
+        Object.freeze(appearanceMember);
+        dateTimeStart = new Date(appearanceMember.dateTimeStart);
+        // console.log("Start ISO FNS = " + fnsDateTimeToISOText(dateTimeStart));
+        dateTimeStartAdjusted = addMinutes(
+          dateTimeStart,
+          action.payload.minutesToAdjustBy
+        );
 
+        dateTimeStartAdjustedISOString = fnsDateTimeToISOText(
+          dateTimeStartAdjusted
+        );
+        dateTimeEnd = new Date(appearanceMember.dateTimeEnd);
+        dateTimeEndAdjusted = addMinutes(
+          dateTimeEnd,
+          action.payload.minutesToAdjustBy
+        );
+
+        dateTimeEndAdjustedISOString = fnsDateTimeToISOText(
+          dateTimeEndAdjusted
+        );
+        return {
+          ...appearanceMember,
+          dateTimeStart: dateTimeStartAdjustedISOString,
+          dateTimeEnd: dateTimeEndAdjustedISOString
+        };
+      });
+      return { ...state, appearancesList: newAppearancesList };
+
+    /*
       for (const appearanceMember of newAppearancesList) {
         if (action.payload.appearancesIdsArray.includes(appearanceMember.id)) {
           console.log("appearanceMember frozen");
@@ -149,7 +179,7 @@ const appearancesReducer = (
         }
       }
       return { ...state, appearancesList: newAppearancesList };
-
+*/
     default:
       return state;
   }
