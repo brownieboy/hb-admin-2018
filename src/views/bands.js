@@ -35,6 +35,7 @@ class Bands extends Component {
       selectedItems: [],
       showConfirmDeleteModal: false,
       showConfirmRemoveFromThisYearModal: false,
+      showConfirmAddToThisYearModal: false,
       showBandsWithAppearancesAlertModal: false,
       bandsWithAppearances: [],
       scrollHeightPercent: 70,
@@ -78,7 +79,9 @@ class Bands extends Component {
       });
     } else {
       this.setState({
-        selectedItems: selectBandsAlphabeticalEnhanced.map(listItem => listItem.id)
+        selectedItems: selectBandsAlphabeticalEnhanced.map(
+          listItem => listItem.id
+        )
       });
     }
   };
@@ -114,7 +117,7 @@ class Bands extends Component {
     }
   };
 
-  removeItemsFromThisYear = () => {
+  handleRemoveItemsFromThisYear = () => {
     const { selectBandsAlphabeticalEnhanced } = this.props;
     const { selectedItems } = this.state;
 
@@ -141,7 +144,11 @@ class Bands extends Component {
     }
   };
 
-  addItemsToThisYear = () => {
+  handleAddItemsToThisYear = () => {
+    this.setState({ showConfirmAddToThisYearModal: true });
+  };
+
+  addAddItemsToThisYear = () => {
     const { adjustBandsSave, addBandsToAppearInYear, thisYear } = this.props;
     const { selectedItems } = this.state;
     // Don't forget the .slice() below, otherwise we modify the state directly!
@@ -295,7 +302,7 @@ class Bands extends Component {
             size={mobileWidth ? "sm" : null}
             disabled={this.state.selectedItems.length === 0}
             style={{ marginLeft: 10 }}
-            onClick={this.addItemsToThisYear}
+            onClick={this.handleAddItemsToThisYear}
           >
             Add selected to {thisYear} lineup
           </Button>
@@ -304,7 +311,7 @@ class Bands extends Component {
             size={mobileWidth ? "sm" : null}
             disabled={this.state.selectedItems.length === 0}
             style={{ marginLeft: 10 }}
-            onClick={this.removeItemsFromThisYear}
+            onClick={this.handleRemoveItemsFromThisYear}
           >
             Remove selected from {thisYear} lineup
           </Button>
@@ -346,6 +353,19 @@ class Bands extends Component {
               this.setState({ showConfirmRemoveFromThisYearModal: false })
             }
           />
+          <ConfirmModal
+            displayModal={this.state.showConfirmAddToThisYearModal}
+            modalTitle={`Add bands from the ${thisYear} festival?`}
+            modalBody={`Are you sure that you want to add the selected bands from the ${thisYear} lineup?`}
+            handleOk={() => {
+              this.addAddItemsToThisYear();
+              this.setState({ showConfirmAddToThisYearModal: false });
+            }}
+            handleCancel={() =>
+              this.setState({ showConfirmAddToThisYearModal: false })
+            }
+          />
+
           <AlertModal
             displayModal={this.state.showBandsWithAppearancesAlertModal}
             modalTitle="Bands with appearances"
