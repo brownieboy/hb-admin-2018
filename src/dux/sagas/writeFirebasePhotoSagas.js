@@ -76,7 +76,8 @@ function* saveAndOpenInUI(data) {
   yield put(saveNewPhoto(photoInfo));
   yield console.log("Saved: now to open it!, history:");
   yield console.log(history);
-  history.push(`/photoform/${photoInfo.id}`);
+  // history.push(`/photoform/${photoInfo.id}`);
+  window.open(`/#/photoform/${photoInfo.id}`, "_blank");
 }
 
 function* deletePhotosProcess(deletePhotosAction) {
