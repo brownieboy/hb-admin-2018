@@ -115,6 +115,8 @@ const appearancesReducer = (
 
       for (const appearanceMember of newAppearancesList) {
         if (action.payload.appearancesIdsArray.includes(appearanceMember.id)) {
+          console.log("appearanceMember frozen");
+          Object.freeze(appearanceMember);
           dateTimeStart = new Date(appearanceMember.dateTimeStart);
           // console.log("Start ISO FNS = " + fnsDateTimeToISOText(dateTimeStart));
           dateTimeStartAdjusted = addMinutes(
@@ -144,11 +146,6 @@ const appearancesReducer = (
           appearanceMember.dateTimeStart = dateTimeStartAdjustedISOString;
 
           appearanceMember.dateTimeEnd = dateTimeEndAdjustedISOString;
-          // console.log(
-          //   "Adjusted End ISO FNS = " +
-          //     fnsDateTimeToISOText(dateTimeEndAdjusted)
-          // );
-          // console.log("adjusting " + appearanceMember.id);
         }
       }
       return { ...state, appearancesList: newAppearancesList };

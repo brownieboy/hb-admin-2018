@@ -5,10 +5,10 @@ import enGB from "date-fns/locale/en-GB";
 
 dateFnsLocalizer({ locales: { "en-GB": enGB } });
 
-export const fnsDateToISOText = theDate => dateFnsFormat(theDate, "YYYY-MM-DD");
+export const fnsDateToISOText = theDate => dateFnsFormat(theDate, "yyyy-MM-dd");
 
 export const fnsDateTimeToISOText = theFnsDate =>
-  dateFnsFormat(theFnsDate, "YYYY-MM-DDTHH:mm");
+  dateFnsFormat(theFnsDate, "yyyy-MM-ddTHH:mm");
 
 export const textDatesToFnsDates = textDateList =>
   textDateList.map(textDate => {
@@ -18,7 +18,7 @@ export const textDatesToFnsDates = textDateList =>
 
 export const fnsDatesToISOText = dateList => {
   // console.log("fnsDatesToISOText, dateFnsFormat=" + dateFnsFormat);
-  return dateList.map(dateMember => dateFnsFormat(dateMember, "YYYY-MM-DD"));
+  return dateList.map(dateMember => dateFnsFormat(dateMember, "yyyy-MM-dd"));
 };
 
 

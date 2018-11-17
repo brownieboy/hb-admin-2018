@@ -46,7 +46,7 @@ export const selectPhotosEnhanced = createSelector(
 
   (photosList, bandsList, stagesList) =>
     photosList.map(photoMember => {
-      Object.freeze(photoMember);
+      // Object.freeze(photoMember);
       let matchingThumbs, matchingCards, matchingEntityObj;
       if (photoMember.type === "band") {
         matchingEntityObj = bandsList.find(
@@ -75,17 +75,9 @@ export const selectPhotosEnhanced = createSelector(
           );
         }
       }
-      // console.warn("Mutation problem here.");
-      // if (matchingEntityObj) {
-      //   photoMember.assocEntityName = matchingEntityObj.name;
-      // }
-      // if (matchingThumbs) {
-      //   photoMember.matchingThumbs = matchingThumbs;
-      // }
-      // if (matchingCards) {
-      //   photoMember.matchingCards = matchingCards;
-      // }
-      // return photoMember;
+      // This is how to do it without mutating the original photoMember object,
+      // which was getting changed in the Redux store when I was assigning
+      // new members to it directly.
       return {
         ...photoMember,
         assocEntityName: matchingEntityObj ? matchingEntityObj.name : void 0,
