@@ -7,6 +7,7 @@ dateFnsLocalizer({ locales: { "en-GB": enGB } });
 
 export const fnsDateToISOText = theDate => dateFnsFormat(theDate, "yyyy-MM-dd");
 
+// Use of the "T" changed between date-fns 1 & 2.
 export const fnsDateTimeToISOText = theFnsDate =>
   dateFnsFormat(theFnsDate, "yyyy-MM-dd HH:mm").replace(" ", "T");
 

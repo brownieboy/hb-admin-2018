@@ -97,16 +97,22 @@ const bandsReducer = (
     case ADD_BANDS_TO_APPEAR_IN_YEAR:
       // newBandsList = state.bandsList.slice(); // Defensive copy
       newBandsList = state.bandsList.map(bandMember => {
+        // Object.freeze(bandMember);
         if (action.payload.bandIdsArray.indexOf(bandMember.id) >= 0) {
           if (typeof bandMember.yearsAppearing === "undefined") {
-            bandMember.yearsAppearing = [action.payload.theYear];
-          } else if (
-            !bandMember.yearsAppearing.includes(action.payload.theYear)
-          ) {
-            bandMember.yearsAppearing = [
-              ...bandMember.yearsAppearing,
-              action.payload.theYear
-            ];
+            return {
+              ...bandMember,
+              yearsAppearing: [action.payload.theYear]
+            };
+          }
+          if (!bandMember.yearsAppearing.includes(action.payload.theYear)) {
+            return {
+              ...bandMember,
+              yearsAppearing: [
+                ...bandMember.yearsAppearing,
+                action.payload.theYear
+              ]
+            };
           }
         }
         return bandMember;
@@ -114,14 +120,20 @@ const bandsReducer = (
       return { ...state, bandsList: newBandsList };
 
     case REMOVE_BANDS_FROM_APPEARING_IN_YEAR:
-      // newBandsList = state.bandsList.slice(); // Defensive copy not needed as map returns new array
       newBandsList = state.bandsList.map(bandMember => {
+        Object.freeze(bandMember);
         if (action.payload.bandIdsArray.indexOf(bandMember.id) >= 0) {
           if (typeof bandMember.yearsAppearing === "object") {
             if (bandMember.yearsAppearing.includes(action.payload.theYear)) {
-              bandMember.yearsAppearing = bandMember.yearsAppearing.filter(
-                member => member !== action.payload.theYear
-              );
+              // bandMember.yearsAppearing = bandMember.yearsAppearing.filter(
+              //   member => member !== action.payload.theYear
+              // );
+              return {
+                ...bandMember,
+                yearsAppearing: bandMember.yearsAppearing.filter(
+                  member => member !== action.payload.theYear
+                )
+              };
             }
           }
         }
@@ -130,7 +142,7 @@ const bandsReducer = (
       return { ...state, bandsList: newBandsList };
 
     case CLEAR_THUMB_PHOTOS_FROM_BANDS:
-      console.log("CLEAR_THUMB_PHOTOS_FROM_BANDS");
+      // console.log("CLEAR_THUMB_PHOTOS_FROM_BANDS");
       // action.payload.photoIDsArray is the list of thumb photo IDs that we need to
       // clear.  We need to check the thumbPhotoId against this id
       newBandsList = state.bandsList.map(bandMember => {
