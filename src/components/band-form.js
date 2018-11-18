@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import { FieldArray, Formik } from "formik";
 import * as yup from "yup";
@@ -45,7 +46,8 @@ class BandForm extends Component {
     this.state = {
       thumbFileInfo: {},
       cardFileInfo: {},
-      cardPostFileName: ""
+      cardPostFileName: "",
+      newPhotoLinkId: ""
     };
   }
 
@@ -89,14 +91,19 @@ assocEntityId(pin): "courtneybarnett"
     const { saveNewPhoto, saveNewPhotoAndOpenInNewUI } = this.props;
     console.log("handNewImageClick");
     // console.log(values);
+    const newPhotoId = `img-${shortId.generate()}`;
+l
+    this.setState({newPhotoLinkId: newPhotoId})
     const newPhotoObj = {
-      id: `img-${shortId.generate()}`,
+      id: newPhotoId,
       assocEntityId: values.id,
       fileName: "unknown",
       fullUrl: "",
       type: "band",
       photoType
     };
+
+    return;
     console.log("newPhotoObj");
     console.log(newPhotoObj);
     const { history, location, match } = this.props;
@@ -129,6 +136,8 @@ assocEntityId(pin): "courtneybarnett"
       yearsAvailable
       // saveBandClear
     } = this.props;
+
+    const { newPhotoLinkId } = this.state;
 
     let fieldValues = {
       name: "",
@@ -385,6 +394,7 @@ assocEntityId(pin): "courtneybarnett"
                     />
                     Create new thumbnail image
                   </Button>
+                  <Link to={`/photoform/${newPhotoLinkId}`}>Temp photo link</Link>
                   <div
                     name="imagesWrapper"
                     style={{ marginBottom: 100, marginTop: 10 }}
