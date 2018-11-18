@@ -99,11 +99,11 @@ assocEntityId(pin): "courtneybarnett"
     };
     console.log("newPhotoObj");
     console.log(newPhotoObj);
-    const { history } = this.props;
-    // console.log(history);
-
+    const { history, location, match } = this.props;
+    console.log(location);
+    console.log(match);
     // saveNewPhoto(newPhotoObj);
-    saveNewPhotoAndOpenInNewUI(newPhotoObj, history);
+    // saveNewPhotoAndOpenInNewUI(newPhotoObj, history);
   };
 
   componentWillUnmount() {
