@@ -49,6 +49,7 @@ class BandForm extends Component {
       cardPostFileName: "",
       newPhotoLinkId: ""
     };
+    this.linkWrapperRef = React.createRef();
   }
 
   classId = "";
@@ -87,30 +88,25 @@ assocEntityId(pin): "courtneybarnett"
 
  */
 
-  handNewImageClick = (photoType, values) => {
-    const { saveNewPhoto, saveNewPhotoAndOpenInNewUI } = this.props;
-    console.log("handNewImageClick");
+  handleNewImageClick = (photoType, values) => {
+    const { saveNewPhotoAndOpenInNewUI } = this.props;
+    // console.log("handNewImageClick");
     // console.log(values);
     const newPhotoId = `img-${shortId.generate()}`;
-l
-    this.setState({newPhotoLinkId: newPhotoId})
-    const newPhotoObj = {
-      id: newPhotoId,
-      assocEntityId: values.id,
-      fileName: "unknown",
-      fullUrl: "",
-      type: "band",
-      photoType
-    };
-
-    return;
-    console.log("newPhotoObj");
-    console.log(newPhotoObj);
-    const { history, location, match } = this.props;
-    console.log(location);
-    console.log(match);
-    // saveNewPhoto(newPhotoObj);
-    // saveNewPhotoAndOpenInNewUI(newPhotoObj, history);
+    this.setState({ newPhotoLinkId: newPhotoId }, () => {
+      const newPhotoObj = {
+        id: newPhotoId,
+        assocEntityId: values.id,
+        fileName: "unknown",
+        fullUrl: "",
+        type: "band",
+        photoType
+      };
+      const domUrl = this.linkWrapperRef.current
+        .getElementsByTagName("a")[0]
+        .getAttribute("href");
+      saveNewPhotoAndOpenInNewUI(newPhotoObj, domUrl);
+    });
   };
 
   componentWillUnmount() {
@@ -386,7 +382,7 @@ l
                   <h2>Images</h2>
                   <Button
                     type="button"
-                    onClick={() => this.handNewImageClick("thumb", values)}
+                    onClick={() => this.handleNewImageClick("thumb", values)}
                   >
                     <i
                       className="fa fa-image fa-lg"
@@ -394,7 +390,11 @@ l
                     />
                     Create new thumbnail image
                   </Button>
-                  <Link to={`/photoform/${newPhotoLinkId}`}>Temp photo link</Link>
+                  <span ref={this.linkWrapperRef} style={{ display: "none" }}>
+                    <Link to={`/photoform/${newPhotoLinkId}`}>
+                      Temp photo link
+                    </Link>
+                  </span>
                   <div
                     name="imagesWrapper"
                     style={{ marginBottom: 100, marginTop: 10 }}
@@ -503,7 +503,7 @@ BandForm.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveBandClear: PropTypes.func,
-  saveNewPhoto: PropTypes.func.isRequired,
+  saveNewPhotoAndOpenInNewUI: PropTypes.func.isRequired,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   sendStorageCardStart: PropTypes.func,

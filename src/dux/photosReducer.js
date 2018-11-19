@@ -53,8 +53,12 @@ const photosReducer = (state = defaultState, action) => {
       };
     case FETCH_PHOTOS_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
-    case SAVE_NEW_PHOTO:
-      return { ...state, photosList: [...state.photosList, action.payload] };
+    case SAVE_NEW_PHOTO: // deliberate fall through
+    case SAVE_NEW_PHOTO_AND_OPEN_IN_UI:
+      return {
+        ...state,
+        photosList: [...state.photosList, action.payload.photoInfo]
+      };
     case SAVE_EDITED_PHOTO:
       // console.log("SAVED_EDITED_PHOTO reducer");
       idx = state.photosList.findIndex(
@@ -157,7 +161,7 @@ export const startFileUpload = fileInfo => ({
 });
 export const saveNewPhoto = photoInfo => ({
   type: SAVE_NEW_PHOTO,
-  payload: photoInfo
+  payload: { photoInfo }
 });
 export const saveEditedPhoto = photoInfo => ({
   type: SAVE_EDITED_PHOTO,
@@ -194,11 +198,11 @@ export const deletePhotos = photoIdsArray => ({
 });
 
 // Action that is listened to by the sagas.
-export const saveNewPhotoAndOpenInNewUI = (photoInfo, history) => ({
+export const saveNewPhotoAndOpenInNewUI = (photoInfo, domUrl) => ({
   type: SAVE_NEW_PHOTO_AND_OPEN_IN_UI,
   payload: {
     photoInfo,
-    history
+    domUrl
   }
 });
 
