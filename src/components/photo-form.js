@@ -5,6 +5,7 @@ import shortId from "shortid";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input, Progress } from "reactstrap";
+import qs from "qs";
 
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { getPhotoStoragePath } from "../constants/firebasePaths.js";
@@ -82,8 +83,8 @@ class PhotoForm extends Component {
       // saveBandClear
     } = this.props;
 
-    // console.log("PhotoForm..render(), props:");
-    // console.log(this.props);
+    console.log("PhotoForm..render(), props:");
+    console.log(this.props);
 
     // if(photoStorageUpdatesList.findin)
     const { fileInfo } = this.state;
@@ -98,6 +99,8 @@ class PhotoForm extends Component {
       photoProgress = 0,
       matchingPhotoStorageUpdate;
     if (isEditExisting) {
+      console.log("parsed is");
+      console.log(qs.parse(match.params.id));
       matchingPhotoInfo = getPhotoInfoForId(match.params.id);
       if (matchingPhotoInfo) {
         fieldValues = { fullUrl: "", ...matchingPhotoInfo };
@@ -208,8 +211,8 @@ class PhotoForm extends Component {
                         values.type === "band"
                           ? bandsPicker
                           : values.type === "stage"
-                            ? stagesPicker
-                            : []
+                          ? stagesPicker
+                          : []
                       )}
                     </Input>
                     {errors.assocEntityId && <div>{errors.assocEntityId}</div>}
