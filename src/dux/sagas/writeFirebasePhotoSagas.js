@@ -32,7 +32,7 @@ import {
   notifySuccess,
   notifyError
   // notifyWarning,
-  // notifyInfo
+  notifyInfo
 } from "../react-redux-notify-helpers.js";
 
 import firebaseApp from "../../apis/firebase-dev.js";
@@ -74,10 +74,11 @@ function* saveAndOpenInUI(data) {
   console.log(data);
   const { photoInfo, domUrl } = data.payload;
   yield put(saveNewPhoto(photoInfo));
-  yield console.log("Saved: now to open it!, domUrl:");
-  yield console.log(domUrl);
+  // yield console.log("Saved: now to open it!, domUrl:");
+  // yield console.log(domUrl);
   // history.push(`/photoform/${photoInfo.id}`);
-  window.open(domUrl, "_blank");
+  yield window.open(domUrl, "_blank");
+  yield put(notifyInfo("When you've added and saved your photo, close this tab/window to return to band."));
 }
 
 function* deletePhotosProcess(deletePhotosAction) {
