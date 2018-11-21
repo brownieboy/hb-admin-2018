@@ -4,12 +4,13 @@ import { Formik } from "formik";
 import shortId from "shortid";
 import * as yup from "yup";
 import PropTypes from "prop-types";
-import { Button, FormGroup, Label, Input, Progress } from "reactstrap";
+import { Button, FormGroup, Label, Input } from "reactstrap";
 import qs from "qs";
 
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { getPhotoStoragePath } from "../constants/firebasePaths.js";
 import { CardImage, ThumbImage } from "./photo-display.js";
+import UploadProgressBar from "./uploadprogressbar.js";
 
 import {
   formFieldsWrapperStyles
@@ -298,14 +299,7 @@ class PhotoForm extends Component {
                         display: this.state.fileInfo.name ? "block" : "none"
                       }}
                     >
-                      <div className="text-center">
-                        {parseInt(photoProgress, 10)}%
-                      </div>
-                      <Progress
-                        name="photoProgressBar"
-                        value={photoProgress}
-                        color={photoProgress === 100 ? "success" : "info"}
-                      />
+                      <UploadProgressBar photoProgress={photoProgress} />
                     </div>
                   </div>
                 </div>
