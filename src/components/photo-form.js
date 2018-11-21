@@ -5,12 +5,13 @@ import shortId from "shortid";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-import qs from "qs";
+// import qs from "qs";
 
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { getPhotoStoragePath } from "../constants/firebasePaths.js";
 import { CardImage, ThumbImage } from "./photo-display.js";
 import UploadProgressBar from "./uploadprogressbar.js";
+import ImageUploader from "./imageuploader.js";
 
 import {
   formFieldsWrapperStyles
@@ -84,8 +85,8 @@ class PhotoForm extends Component {
       // saveBandClear
     } = this.props;
 
-    console.log("PhotoForm..render(), props:");
-    console.log(this.props);
+    // console.log("PhotoForm..render(), props:");
+    // console.log(this.props);
 
     // if(photoStorageUpdatesList.findin)
     const { fileInfo } = this.state;
@@ -100,8 +101,8 @@ class PhotoForm extends Component {
       photoProgress = 0,
       matchingPhotoStorageUpdate;
     if (isEditExisting) {
-      console.log("parsed is");
-      console.log(qs.parse(match.params.id));
+      // console.log("parsed is");
+      // console.log(qs.parse(match.params.id));
       matchingPhotoInfo = getPhotoInfoForId(match.params.id);
       if (matchingPhotoInfo) {
         fieldValues = { fullUrl: "", ...matchingPhotoInfo };
@@ -275,33 +276,15 @@ class PhotoForm extends Component {
                   name="imagesWrapper"
                   style={{ marginBottom: 100, marginTop: 40 }}
                 >
-                  <div name="imagesLeftWrapper">
-                    <div>
-                      <input
-                        type="file"
-                        disabled={!isEditExisting}
-                        name="photoInput"
-                        onChange={this.handleFileChange}
-                      />
-                    </div>
-                    <button
-                      disabled={!this.state.fileInfo.name}
-                      onClick={() =>
-                        this.handleFileUpload(values, matchingPhotoInfo)
-                      }
-                      style={{ marginTop: 10 }}
-                    >
-                      Upload photo
-                    </button>
-                    <div
-                      style={{
-                        maxWidth: 200,
-                        display: this.state.fileInfo.name ? "block" : "none"
-                      }}
-                    >
-                      <UploadProgressBar photoProgress={photoProgress} />
-                    </div>
-                  </div>
+                  <ImageUploader
+                    inputDisabled={!isEditExisting}
+                    values={values}
+                    matchingPhotoInfo={matchingPhotoInfo}
+                    handleFileUpload={this.handleFileUpload}
+                    photoProgress={photoProgress}
+                    handleFileChange={this.handleFileChange}
+                    displayProgressBar={this.state.fileInfo.name ? true : false}
+                  />
                 </div>
               </div>
             );
