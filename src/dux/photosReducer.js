@@ -54,7 +54,7 @@ const photosReducer = (state = defaultState, action) => {
     case FETCH_PHOTOS_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
     case SAVE_NEW_PHOTO: // deliberate fall through
-    case SAVE_NEW_PHOTO_AND_OPEN_IN_UI:
+    // case SAVE_NEW_PHOTO_AND_OPEN_IN_UI:
       return {
         ...state,
         photosList: [...state.photosList, action.payload.photoInfo]
