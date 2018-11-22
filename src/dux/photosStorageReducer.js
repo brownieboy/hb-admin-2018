@@ -135,7 +135,22 @@ const photoStorageReducer = (
 
 // Getters are just functions, so keep it simple here to avoid unnecessary renders
 export const getUploadingPhotosList = state =>
-  state.photoStorageState.uploadingPhotosList;
+  state.photosStorageState.uploadingPhotosList;
+
+export const getUploadingPhotoStorageInfoForId = (state, photoId) =>
+  state.photosStorageState.uploadingPhotosList
+    ? state.photosStorageState.uploadingPhotosList.find(
+        photoStorageMember => photoStorageMember.updateId === photoId
+      )
+    : null;
+
+export const getUploadingPhotoProgressForId = (state, photoId) => {
+  const photoStorageMember = getUploadingPhotoStorageInfoForId(state, photoId);
+  if (photoStorageMember && photoStorageMember.photoProgress) {
+    return photoStorageMember.photoProgress;
+  }
+  return 0;
+};
 
 // Action creators
 export const sendPhotoStorageStart = (updateId, fileInfo) => ({

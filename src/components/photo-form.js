@@ -30,17 +30,17 @@ class PhotoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fileInfo: {},
+      fileInfo: { name: "" },
       postFileName: ""
     };
   }
 
   classId = "";
 
-  handleFileChange = event => {
+  handleFileChange = fileInfo => {
     // console.log("handleThumbFileChange");
     // console.log(event.target.files[0]);
-    this.setState({ fileInfo: event.target.files[0] });
+    this.setState({ fileInfo });
   };
 
   handleFileUpload = (values, matchingPhotoInfo) => {
@@ -79,7 +79,6 @@ class PhotoForm extends Component {
       saveStatus,
       // sendStorageStart,
       // photoProgress = 0,
-      photoStorageUpdatesList,
       bandsPicker,
       stagesPicker
       // saveBandClear
@@ -97,22 +96,13 @@ class PhotoForm extends Component {
       fullUrl: ""
     };
 
-    let matchingPhotoInfo,
-      photoProgress = 0,
-      matchingPhotoStorageUpdate;
+    let matchingPhotoInfo;
     if (isEditExisting) {
       // console.log("parsed is");
       // console.log(qs.parse(match.params.id));
       matchingPhotoInfo = getPhotoInfoForId(match.params.id);
       if (matchingPhotoInfo) {
         fieldValues = { fullUrl: "", ...matchingPhotoInfo };
-      }
-
-      matchingPhotoStorageUpdate = photoStorageUpdatesList.find(
-        memberObj => memberObj.updateId === fieldValues.id
-      );
-      if (matchingPhotoStorageUpdate) {
-        photoProgress = matchingPhotoStorageUpdate.photoProgress;
       }
     }
 
@@ -279,11 +269,11 @@ class PhotoForm extends Component {
                   <ImageUploaderConn
                     photoId={values.id}
                     inputDisabled={!isEditExisting}
-                    values={values}
-                    handleFileUpload={this.handleFileUpload}
-                    photoProgress={photoProgress}
+                    handleFileUpload={mPhotoInfo => {
+                      this.handleFileUpload(values, mPhotoInfo);
+                    }}
                     handleFileChange={this.handleFileChange}
-                    displayProgressBar={this.state.fileInfo.name ? true : false}
+                    fileMame={fileInfo.name}
                   />
                 </div>
               </div>
@@ -314,8 +304,6 @@ PhotoForm.propTypes = {
   notifyInfo: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
-  photoStorageUpdatesList: PropTypes.arrayOf(PropTypes.object.isRequired)
-    .isRequired,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   sendStorageStart: PropTypes.func,

@@ -14,7 +14,6 @@ import {
   // getBandInfoForId as getBandInfoForIdAction
 } from "../dux/photosReducer.js";
 
-import { getUploadingPhotosList } from "../dux/photosStorageReducer.js";
 
 import {
   selectBandsPicker,
@@ -29,11 +28,10 @@ const getCommonStateObject = state => ({
   isLoggedIn: state.firebaseLoginState.loggedIn,
   bandsPicker: selectBandsPicker(state),
   stagesPicker: selectStagesPicker(state),
-  getPhotoInfoForId: id => getPhotoInfoForId(state, id),
-  photoStorageUpdatesList: getUploadingPhotosList(state)
-  //   photoStatus: state.photoStorageState.photoStatus,
-  //   photoError: state.photoStorageState.photoError,
-  //   photoProgress: state.photoStorageState.photoProgress
+  getPhotoInfoForId: id => getPhotoInfoForId(state, id)
+  //   photoStatus: state.photosStorageState.photoStatus,
+  //   photoError: state.photosStorageState.photoError,
+  //   photoProgress: state.photosStorageState.photoProgress
 });
 
 // So we're connecting the same form to Redux, but with different props

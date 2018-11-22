@@ -27,7 +27,7 @@ const mainReducer = combineReducers({
   stagesState: stagesReducer,
   datesState: datesReducer,
   // storageState: storageReducer,
-  photoStorageState: photosStorageReducer,
+  photosStorageState: photosStorageReducer,
   photosState: photosReducer
 });
 

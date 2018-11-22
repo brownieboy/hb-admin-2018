@@ -6,16 +6,17 @@ class ImageUploader extends Component {
   render() {
     const {
       inputDisabled = false,
-      values,
       getPhotoInfoForId,
+      getUploadingPhotoProgressForId,
       photoId,
-      photoProgress,
+      fileName = "",
       handleFileUpload,
-      handleFileChange,
-      displayProgressBar
+      handleFileChange
     } = this.props;
 
+    const displayProgressBar = fileName !== "";
     const matchingPhotoInfo = getPhotoInfoForId(photoId);
+    const photoProgress = getUploadingPhotoProgressForId(photoId);
     return (
       <div>
         <h3>Image Uploader</h3>
@@ -24,12 +25,17 @@ class ImageUploader extends Component {
             type="file"
             disabled={inputDisabled}
             name="photoInput"
-            onChange={handleFileChange}
+            onChange={e => {
+              // Send up file info.  Object includes name, type etc
+              // console.log("e.target.files[0]");
+              // console.log(e.target.files[0]);
+              handleFileChange(e.target.files[0]);
+            }}
           />
         </div>
         <button
           disabled={!displayProgressBar}
-          onClick={() => handleFileUpload(values, matchingPhotoInfo)}
+          onClick={() => handleFileUpload(matchingPhotoInfo)}
           style={{ marginTop: 10 }}
         >
           Upload photo
@@ -48,7 +54,12 @@ class ImageUploader extends Component {
 }
 
 ImageUploader.propTypes = {
+  fileName: PropTypes.string,
   getPhotoInfoForId: PropTypes.func.isRequired,
+  getUploadingPhotoProgressForId: PropTypes.func.isRequired,
+  handleFileChange: PropTypes.func.isRequired,
+  handleFileUpload: PropTypes.func.isRequired,
+  inputDisabled: PropTypes.bool,
   photoId: PropTypes.string.isRequired
 };
 
