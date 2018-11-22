@@ -10,8 +10,8 @@ import { Button, FormGroup, Label, Input } from "reactstrap";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { getPhotoStoragePath } from "../constants/firebasePaths.js";
 import { CardImage, ThumbImage } from "./photo-display.js";
-import UploadProgressBar from "./uploadprogressbar.js";
-import ImageUploader from "./imageuploader.js";
+// import UploadProgressBar from "./uploadprogressbar.js";
+import ImageUploaderConn from "../containers/imageuploader-conn.js";
 
 import {
   formFieldsWrapperStyles
@@ -276,10 +276,10 @@ class PhotoForm extends Component {
                   name="imagesWrapper"
                   style={{ marginBottom: 100, marginTop: 40 }}
                 >
-                  <ImageUploader
+                  <ImageUploaderConn
+                    photoId={values.id}
                     inputDisabled={!isEditExisting}
                     values={values}
-                    matchingPhotoInfo={matchingPhotoInfo}
                     handleFileUpload={this.handleFileUpload}
                     photoProgress={photoProgress}
                     handleFileChange={this.handleFileChange}
