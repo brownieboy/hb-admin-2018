@@ -5,12 +5,9 @@ import { connect } from "react-redux";
 import ImageUploader from "../components/imageuploader.js";
 
 // Dux
-import {
-  // startFileUpload,
-  // saveNewPhoto,
-  // saveEditedPhoto,
-  getPhotoInfoForId
-} from "../dux/photosReducer.js";
+// import {
+//   getPhotoInfoForId
+// } from "../dux/photosReducer.js";
 
 import { getUploadingPhotoProgressForId } from "../dux/photosStorageReducer.js";
 
@@ -19,7 +16,7 @@ import { getUploadingPhotoProgressForId } from "../dux/photosStorageReducer.js";
 // import { notifyInfo } from "../dux/react-redux-notify-helpers.js";
 
 const mapStateToProps = state => ({
-  getPhotoInfoForId: id => getPhotoInfoForId(state, id),
+  // getPhotoInfoForId: id => getPhotoInfoForId(state, id),
   getUploadingPhotoProgressForId: id =>
     getUploadingPhotoProgressForId(state, id)
 });

@@ -269,8 +269,8 @@ class PhotoForm extends Component {
                   <ImageUploaderConn
                     photoId={values.id}
                     inputDisabled={!isEditExisting}
-                    handleFileUpload={mPhotoInfo => {
-                      this.handleFileUpload(values, mPhotoInfo);
+                    handleFileUpload={() => {
+                      this.handleFileUpload(values, matchingPhotoInfo);
                     }}
                     handleFileChange={this.handleFileChange}
                     fileMame={fileInfo.name}
