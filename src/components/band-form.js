@@ -12,6 +12,7 @@ import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 import { CardImage, ThumbImage } from "./photo-display.js";
 import ConfirmModal from "./confirm-modal.js";
+import ImageUploaderConn from "../containers/imageuploader-conn.js";
 
 import {
   formFieldsWrapperStyles,
@@ -47,9 +48,9 @@ class BandForm extends Component {
     this.state = {
       thumbFileInfo: {},
       cardFileInfo: {},
-      displayNewNThumbModal: false,
       cardPostFileName: "",
-      newPhotoLinkId: ""
+      newPhotoThumbId: "",
+      newPhotoCardId: ""
     };
     this.linkWrapperRef = React.createRef();
   }
@@ -69,24 +70,25 @@ class BandForm extends Component {
   };
 
   handleNewImageClick = (photoType, values) => {
-    const { saveNewPhotoAndOpenInNewUI } = this.props;
+    const { saveNewPhoto } = this.props;
     // console.log("handNewImageClick");
     // console.log(values);
     const newPhotoId = `img-${shortId.generate()}`;
-    this.setState({ newPhotoLinkId: newPhotoId }, () => {
-      const newPhotoObj = {
-        id: newPhotoId,
-        assocEntityId: values.id,
-        fileName: "unknown",
-        fullUrl: "",
-        type: "band",
-        photoType
-      };
-      const domUrl = this.linkWrapperRef.current
-        .getElementsByTagName("a")[0]
-        .getAttribute("href");
-      saveNewPhotoAndOpenInNewUI(newPhotoObj, domUrl);
-    });
+
+    const newPhotoObj = {
+      id: newPhotoId,
+      assocEntityId: values.id,
+      fileName: "unknown",
+      fullUrl: "",
+      type: "band",
+      photoType
+    };
+    // const domUrl = this.linkWrapperRef.current
+    //   .getElementsByTagName("a")[0]
+    // .getAttribute("href");
+    //  saveNewPhotoAndOpenInNewUI(newPhotoObj, domUrl);
+    saveNewPhoto(newPhotoObj);
+    this.setState({ [`newPhoto${photoType}Id`]: newPhotoId });
   };
 
   componentWillUnmount() {
@@ -468,7 +470,15 @@ class BandForm extends Component {
             this.setState({ displayNewNThumbModal: false });
           }}
         >
-          Hey there
+          <ImageUploaderConn
+            photoId={values.id}
+            inputDisabled={!isEditExisting}
+            handleFileUpload={() => {
+              this.handleFileUpload(values, matchingPhotoInfo);
+            }}
+            handleFileChange={this.handleFileChange}
+            fileName={fileInfo.name}
+          />{" "}
         </ConfirmModal>
       </div>
     );
@@ -497,7 +507,7 @@ BandForm.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveBandClear: PropTypes.func,
-  saveNewPhotoAndOpenInNewUI: PropTypes.func.isRequired,
+  saveNewPhoto: PropTypes.func.isRequired,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   sendStorageCardStart: PropTypes.func,

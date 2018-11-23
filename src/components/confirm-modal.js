@@ -29,6 +29,7 @@ const ConfirmModal = ({
 
 ConfirmModal.propTypes = {
   displayModal: PropTypes.bool.isRequired,
+  children: PropTypes.object,
   modalBody: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.object)
