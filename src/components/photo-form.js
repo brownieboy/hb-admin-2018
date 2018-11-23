@@ -273,7 +273,7 @@ class PhotoForm extends Component {
                       this.handleFileUpload(values, matchingPhotoInfo);
                     }}
                     handleFileChange={this.handleFileChange}
-                    fileMame={fileInfo.name}
+                    fileName={fileInfo.name}
                   />
                 </div>
               </div>

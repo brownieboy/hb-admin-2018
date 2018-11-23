@@ -14,9 +14,6 @@ class ImageUploader extends Component {
       handleFileChange
     } = this.props;
 
-
-    console.log("ImageUploader..render, props:");
-    console.log(this.props);
     const displayProgressBar = fileName && fileName !== "";
     // const matchingPhotoInfo = getPhotoInfoForId(photoId);
     const photoProgress = getUploadingPhotoProgressForId(photoId);
