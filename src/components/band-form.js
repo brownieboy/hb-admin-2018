@@ -11,6 +11,7 @@ import { OptionsForArray } from "../helper-functions/field-helpers.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 import { CardImage, ThumbImage } from "./photo-display.js";
+import ConfirmModal from "./confirm-modal.js";
 
 import {
   formFieldsWrapperStyles,
@@ -46,6 +47,7 @@ class BandForm extends Component {
     this.state = {
       thumbFileInfo: {},
       cardFileInfo: {},
+      displayNewNThumbModal: false,
       cardPostFileName: "",
       newPhotoLinkId: ""
     };
@@ -65,28 +67,6 @@ class BandForm extends Component {
     // console.log(event.target.files[0]);
     this.setState({ cardFileInfo: event.target.files[0] });
   };
-
-  /*
-assocEntityId(pin): "bloe"
-assocEntityName(pin): "Black Leaves of Envy"
-fileName(pin): "blackleaves-logo.jpg"
-filePath(pin): "/img/bands/thumbstest/blackleaves-logo.jpg"
-fullUrl(pin): "https://firebasestorage.googleapis.com/v0/b/helstonbury-cadbf.appspot.com/o/img%2Fbands%2Fthumbstest%2Fblackleaves-logo.jpg?alt=media&token=34d28539-a46e-4b71-aa42-e443f78eb469"
-id(pin): "img-d5FvX5HirH"
-photoType(pin): "thumb"
-type(pin): "band"
-matchingThumbs(pin):
-
-this is what was sent
-fileName(pin): "unknown"
-id(pin): "img-JfEJWZZAz"
-fullUrl(pin): ""
-type(pin): "band"
-photoType(pin): "thumb"
-assocEntityId(pin): "courtneybarnett"
-
-
- */
 
   handleNewImageClick = (photoType, values) => {
     const { saveNewPhotoAndOpenInNewUI } = this.props;
@@ -133,7 +113,7 @@ assocEntityId(pin): "courtneybarnett"
       // saveBandClear
     } = this.props;
 
-    const { newPhotoLinkId } = this.state;
+    const { displayNewNThumbModal, newPhotoLinkId } = this.state;
 
     let fieldValues = {
       name: "",
@@ -382,7 +362,9 @@ assocEntityId(pin): "courtneybarnett"
                   <h2>Images</h2>
                   <Button
                     type="button"
-                    onClick={() => this.handleNewImageClick("thumb", values)}
+                    onClick={() =>
+                      this.setState({ displayNewNThumbModal: true })
+                    }
                   >
                     <i
                       className="fa fa-image fa-lg"
@@ -476,6 +458,18 @@ assocEntityId(pin): "courtneybarnett"
             );
           }}
         />
+        <ConfirmModal
+          displayModal={displayNewNThumbModal}
+          modalTitle="Upload Thumbnail Image"
+          handleOk={() => {
+            console.log("handleOk");
+          }}
+          handleCancel={() => {
+            this.setState({ displayNewNThumbModal: false });
+          }}
+        >
+          Hey there
+        </ConfirmModal>
       </div>
     );
   }

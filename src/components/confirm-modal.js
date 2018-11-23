@@ -4,14 +4,18 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const ConfirmModal = ({
   displayModal = false,
-  modalBody = "Body here",
+  modalBody = "",
   modalTitle = "Title here",
   handleOk,
-  handleCancel
+  handleCancel,
+  children
 }) => (
   <Modal isOpen={displayModal}>
     <ModalHeader>{modalTitle}</ModalHeader>
-    <ModalBody>{modalBody}</ModalBody>
+    <ModalBody>
+      {modalBody}
+      {children}
+    </ModalBody>
     <ModalFooter>
       <Button color="primary" onClick={handleOk}>
         Ok

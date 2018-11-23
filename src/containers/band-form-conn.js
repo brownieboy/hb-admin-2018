@@ -18,7 +18,7 @@ import { getAppearancesForBandId } from "../dux/appearancesReducer.js";
 import { selectCurrentYear, yearsAvailable } from "../dux/datesReducer.js";
 import {
   saveNewPhoto,
-  saveNewPhotoAndOpenInNewUI,
+  saveNewPhotoAndOpenInNewUI
 } from "../dux/photosReducer.js";
 
 import {
