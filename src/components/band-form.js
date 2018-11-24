@@ -69,9 +69,13 @@ class BandForm extends Component {
     this.setState({ cardFileInfo: event.target.files[0] });
   };
 
+  handleFileUpload = () => {
+    console.log("BandForm..handleFileUpload");
+  };
+
   handleNewImageClick = (photoType, values) => {
     const { saveNewPhoto } = this.props;
-    // console.log("handNewImageClick");
+    console.log("handNewImageClick");
     // console.log(values);
     const newPhotoId = `img-${shortId.generate()}`;
 
@@ -115,7 +119,12 @@ class BandForm extends Component {
       // saveBandClear
     } = this.props;
 
-    const { displayNewNThumbModal, newPhotoLinkId } = this.state;
+    const {
+      newPhotoThumbId,
+      newPhotoCardId,
+      newPhotoLinkId,
+      thumbFileInfo
+    } = this.state;
 
     let fieldValues = {
       name: "",
@@ -364,9 +373,7 @@ class BandForm extends Component {
                   <h2>Images</h2>
                   <Button
                     type="button"
-                    onClick={() =>
-                      this.setState({ displayNewNThumbModal: true })
-                    }
+                    onClick={() => this.handleNewImageClick("thumb", values)}
                   >
                     <i
                       className="fa fa-image fa-lg"
@@ -461,7 +468,7 @@ class BandForm extends Component {
           }}
         />
         <ConfirmModal
-          displayModal={displayNewNThumbModal}
+          displayModal={!!thumbFileInfo.name}
           modalTitle="Upload Thumbnail Image"
           handleOk={() => {
             console.log("handleOk");
@@ -471,13 +478,13 @@ class BandForm extends Component {
           }}
         >
           <ImageUploaderConn
-            photoId={values.id}
+            photoId={newPhotoThumbId}
             inputDisabled={!isEditExisting}
             handleFileUpload={() => {
-              this.handleFileUpload(values, matchingPhotoInfo);
+              this.handleFileUpload();
             }}
             handleFileChange={this.handleFileChange}
-            fileName={fileInfo.name}
+            fileName={thumbFileInfo.name ? thumbFileInfo.name : "unknown"}
           />{" "}
         </ConfirmModal>
       </div>
