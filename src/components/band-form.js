@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import { FieldArray, Formik } from "formik";
 import * as yup from "yup";
@@ -46,27 +46,28 @@ class BandForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      thumbFileInfo: {},
-      cardFileInfo: {},
-      cardPostFileName: "",
-      newPhotoThumbId: "",
-      newPhotoCardId: ""
+      thumbPhotoInfo: {},
+      cardPhotoInfo: {},
+      thumbStorageFileInfo: {},
+      cardStorageFileInfo: {}
     };
     this.linkWrapperRef = React.createRef();
   }
 
   classId = "";
 
-  handleThumbFileChange = event => {
+  handleFileChange = (photoType, fileInfo) => {
     // console.log("handleThumbFileChange");
     // console.log(event.target.files[0]);
-    this.setState({ thumbFileInfo: event.target.files[0] });
-  };
-
-  handleCardFileChange = event => {
-    // console.log("handleThumbFileChange");
-    // console.log(event.target.files[0]);
-    this.setState({ cardFileInfo: event.target.files[0] });
+    console.log("BandForm..handleFileChange");
+    const newPhotoInfo = {
+      ...this.state[`${photoType}PhotoInfo`],
+      fileName: fileInfo.name
+    };
+    this.setState({
+      [`${photoType}StorageFileInfo`]: fileInfo,
+      [`${photoType}PhotoInfo`]: newPhotoInfo
+    });
   };
 
   handleFileUpload = () => {
@@ -91,8 +92,10 @@ class BandForm extends Component {
     //   .getElementsByTagName("a")[0]
     // .getAttribute("href");
     //  saveNewPhotoAndOpenInNewUI(newPhotoObj, domUrl);
-    saveNewPhoto(newPhotoObj);
-    this.setState({ [`newPhoto${photoType}Id`]: newPhotoId });
+    //  saveNewPhoto(newPhotoObj);
+    // this.setState({ [`newPhoto${photoType}Id`]: newPhotoId });
+    // Dynamic property name assignment
+    this.setState({ [`${photoType}PhotoInfo`]: newPhotoObj });
   };
 
   componentWillUnmount() {
@@ -120,10 +123,10 @@ class BandForm extends Component {
     } = this.props;
 
     const {
-      newPhotoThumbId,
-      newPhotoCardId,
-      newPhotoLinkId,
-      thumbFileInfo
+      thumbPhotoInfo,
+      cardPhotoInfo,
+      thumbStorageFileInfo,
+      cardStorageFileInfo
     } = this.state;
 
     let fieldValues = {
@@ -381,11 +384,6 @@ class BandForm extends Component {
                     />
                     Create new thumbnail image
                   </Button>
-                  <span ref={this.linkWrapperRef} style={{ display: "none" }}>
-                    <Link to={`/photoform/${newPhotoLinkId}`}>
-                      Temp photo link
-                    </Link>
-                  </span>
                   <div
                     name="imagesWrapper"
                     style={{ marginBottom: 100, marginTop: 10 }}
@@ -468,24 +466,26 @@ class BandForm extends Component {
           }}
         />
         <ConfirmModal
-          displayModal={!!thumbFileInfo.name}
+          displayModal={!!thumbPhotoInfo.fileName}
           modalTitle="Upload Thumbnail Image"
           handleOk={() => {
             console.log("handleOk");
           }}
           handleCancel={() => {
-            this.setState({ displayNewNThumbModal: false });
+            this.setState({ thumbPhotoInfo: {} });
           }}
         >
           <ImageUploaderConn
-            photoId={newPhotoThumbId}
+            photoId={thumbPhotoInfo.id ? thumbPhotoInfo.id : ""}
             inputDisabled={!isEditExisting}
-            handleFileUpload={() => {
-              this.handleFileUpload();
-            }}
-            handleFileChange={this.handleFileChange}
-            fileName={thumbFileInfo.name ? thumbFileInfo.name : "unknown"}
-          />{" "}
+            handleFileUpload={this.handleFileUpload}
+            handleFileChange={fileInfo =>
+              this.handleFileChange("thumb", fileInfo)
+            }
+            fileName={
+              thumbPhotoInfo.fileName ? thumbPhotoInfo.fileName : "unknown"
+            }
+          />
         </ConfirmModal>
       </div>
     );
@@ -493,6 +493,13 @@ class BandForm extends Component {
 }
 
 /*
+
+                  <span ref={this.linkWrapperRef} style={{ display: "none" }}>
+                    <Link to={`/photoform/${newPhotoLinkId}`}>
+                      Temp photo link
+                    </Link>
+                  </span>
+
 https://findmyfbid.com/, https://findmyfbid.com/
 */
 

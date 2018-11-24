@@ -14,12 +14,11 @@ class ImageUploader extends Component {
       handleFileChange
     } = this.props;
 
-    const displayProgressBar = fileName && fileName !== "";
+    const displayProgressBar = fileName && fileName !== "" && fileName !== "unknown";
     // const matchingPhotoInfo = getPhotoInfoForId(photoId);
     const photoProgress = getUploadingPhotoProgressForId(photoId);
     return (
       <div>
-        <h3>Image Uploader</h3>
         <div>
           <input
             type="file"
