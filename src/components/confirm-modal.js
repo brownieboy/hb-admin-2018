@@ -17,9 +17,12 @@ const ConfirmModal = ({
       {children}
     </ModalBody>
     <ModalFooter>
-      <Button color="primary" onClick={handleOk}>
-        Ok
-      </Button>{" "}
+      {handleOk ? (
+        <Button color="primary" onClick={handleOk}>
+          Ok
+        </Button>
+      ) : null}
+
       <Button color="secondary" onClick={handleCancel}>
         Cancel
       </Button>
@@ -38,7 +41,7 @@ ConfirmModal.propTypes = {
     PropTypes.arrayOf(PropTypes.object)
   ]),
   modalTitle: PropTypes.string.isRequired,
-  handleOk: PropTypes.func.isRequired,
+  handleOk: PropTypes.func,
   handleCancel: PropTypes.func.isRequired
 };
 

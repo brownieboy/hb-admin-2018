@@ -468,9 +468,6 @@ class BandForm extends Component {
         <ConfirmModal
           displayModal={!!thumbPhotoInfo.fileName}
           modalTitle="Upload Thumbnail Image"
-          handleOk={() => {
-            console.log("handleOk");
-          }}
           handleCancel={() => {
             this.setState({ thumbPhotoInfo: {} });
           }}
