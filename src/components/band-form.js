@@ -59,7 +59,7 @@ class BandForm extends Component {
   handleFileChange = (photoType, fileInfo) => {
     // console.log("handleThumbFileChange");
     // console.log(event.target.files[0]);
-    console.log("BandForm..handleFileChange");
+    // console.log("BandForm..handleFileChange");
     const newPhotoInfo = {
       ...this.state[`${photoType}PhotoInfo`],
       fileName: fileInfo.name
@@ -78,6 +78,7 @@ class BandForm extends Component {
     const { saveNewPhotoAndUploadProcess } = this.props;
     const photoInfo = this.state[`${photoType}PhotoInfo`];
     const storageFileInfo = this.state[`${photoType}StorageFileInfo`];
+    // Triggers savePhotoInfoAndUploadsaga watche din writeFirebasePhotoSagas.js
     saveNewPhotoAndUploadProcess(photoInfo, storageFileInfo, {});
   };
 

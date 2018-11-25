@@ -21,6 +21,7 @@ import {
   deletePhotos,
   SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS,
   saveNewPhoto,
+  startFileUpload,
   savePhotoRequest,
   savePhotoSucceeded,
   savePhotoFailed
@@ -72,6 +73,25 @@ function* saveData() {
 function* savePhotoInfoAndUpload(data) {
   yield console.log("savePhotoInfoAndUpload saga, data:");
   yield console.log(data);
+  // yield put(saveNewPhoto(data.photoInfo));
+  // yield put(startFileUpload(data.storageInfo))
+  
+
+/* this is what needs to get passed to starteFileUpload
+
+payload:
+assocEntityName: undefined
+fileInfo: File(3100) {name: "acdc-logo.png", lastModified: 1543120779083, lastModifiedDate: Sun Nov 25 2018 15:39:39 GMT+1100 (Australian Eastern Daylight Time), webkitRelativePath: "", size: 3100, …}
+id: "img-xe1mPAcYT"
+photoType: "thumb"
+storagePath: "/img/bands/thumbs"
+type: "band"
+__proto__: Object
+type: "START_PHOTO_FILE_UPLOAD"
+
+*/
+
+
   // Need to insert paths here?  We have data type etc.  Or is that
   // done in sagas we're about to call.
 }
