@@ -13,6 +13,7 @@ import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { CardImage, ThumbImage } from "./photo-display.js";
 import ConfirmModal from "./confirm-modal.js";
 import ImageUploaderConn from "../containers/imageuploader-conn.js";
+import { getPhotoStoragePath } from "../constants/firebasePaths.js";
 
 import {
   formFieldsWrapperStyles,
@@ -70,7 +71,7 @@ class BandForm extends Component {
     });
   };
 
-/*
+  /*
 From photoForm
   handleFileUpload = (values, matchingPhotoInfo) => {
     const storageData = {
@@ -90,7 +91,6 @@ check saveEditedPhoto SAVE_EDITED_PHOTO action
 and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
  */
 
-
   handleFileUpload = photoType => {
     // Note: the new photo boject created in handleNewImageClick has not
     // been saved to Redux Store at this point.  So we need to that and
@@ -98,7 +98,11 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
     console.log("BandForm..handleFileUpload");
     const { saveNewPhotoAndUploadProcess } = this.props;
     const photoInfo = this.state[`${photoType}PhotoInfo`];
-    const storageFileInfo = this.state[`${photoType}StorageFileInfo`];
+    const storageFileInfo = {
+      ...this.state[`${photoType}PhotoInfo`],
+      fileInfo: this.state[`${photoType}StorageFileInfo`],
+      storagePath: getPhotoStoragePath("band", photoType)
+    };
     // Triggers savePhotoInfoAndUploadsaga watche din writeFirebasePhotoSagas.js
     saveNewPhotoAndUploadProcess(photoInfo, storageFileInfo, {});
   };
