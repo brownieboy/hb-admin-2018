@@ -70,6 +70,25 @@ class BandForm extends Component {
     });
   };
 
+/*
+From photoForm
+  handleFileUpload = (values, matchingPhotoInfo) => {
+    const storageData = {
+      id: values.id,
+      type: values.type,
+      photoType: values.photoType,
+      assocEntityName: matchingPhotoInfo
+        ? matchingPhotoInfo.assocEntityName
+        : "????",
+      fileInfo: this.state.fileInfo,
+      storagePath: getPhotoStoragePath(values.type, values.photoType)
+    };
+
+Need to replicate this below....
+
+ */
+
+
   handleFileUpload = photoType => {
     // Note: the new photo boject created in handleNewImageClick has not
     // been saved to Redux Store at this point.  So we need to that and
