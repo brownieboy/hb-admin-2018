@@ -85,7 +85,9 @@ From photoForm
     };
 
 Need to replicate this below....
-
+... and then fullUrl and filePath need to get added to photoInfo somewhere,
+check saveEditedPhoto SAVE_EDITED_PHOTO action
+and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
  */
 
 
