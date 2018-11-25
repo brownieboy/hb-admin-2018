@@ -22,7 +22,9 @@ export const START_PHOTO_FILE_UPLOAD = "START_PHOTO_FILE_UPLOAD";
 const UPDATE_PHOTO_FILE_URL = "UPDATE_PHOTO_FILE_URL";
 const START_DELETE_PHOTOS_PROCESS = "START_DELETE_PHOTOS_PROCESS";
 const DELETE_PHOTOS = "DELETE_PHOTOS";
-export const SAVE_NEW_PHOTO_AND_OPEN_IN_UI = "SAVE_NEW_PHOTO_AND_OPEN_IN_UI";
+// export const SAVE_NEW_PHOTO_AND_OPEN_IN_UI = "SAVE_NEW_PHOTO_AND_OPEN_IN_UI";
+export const SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS =
+  "SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS";
 
 export const actionTypes = {
   SAVE_NEW_PHOTO,
@@ -54,7 +56,7 @@ const photosReducer = (state = defaultState, action) => {
     case FETCH_PHOTOS_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
     case SAVE_NEW_PHOTO: // deliberate fall through
-    // case SAVE_NEW_PHOTO_AND_OPEN_IN_UI:
+      // case SAVE_NEW_PHOTO_AND_OPEN_IN_UI:
       return {
         ...state,
         photosList: [...state.photosList, action.payload.photoInfo]
@@ -198,13 +200,26 @@ export const deletePhotos = photoIdsArray => ({
 });
 
 // Action that is listened to by the sagas.
-export const saveNewPhotoAndOpenInNewUI = (photoInfo, domUrl) => ({
-  type: SAVE_NEW_PHOTO_AND_OPEN_IN_UI,
+export const saveNewPhotoAndUploadProcess = (
+  photoInfo,
+  storageInfo,
+  notifyInfo = {}
+) => ({
+  type: SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS,
   payload: {
     photoInfo,
-    domUrl
+    storageInfo,
+    notifyInfo
   }
 });
+
+// export const saveNewPhotoAndOpenInNewUI = (photoInfo, domUrl) => ({
+//   type: SAVE_NEW_PHOTO_AND_OPEN_IN_UI,
+//   payload: {
+//     photoInfo,
+//     domUrl
+//   }
+// });
 
 export const photosDuxActions = {
   setFetchPhotosRequest,

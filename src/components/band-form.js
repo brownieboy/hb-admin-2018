@@ -70,12 +70,21 @@ class BandForm extends Component {
     });
   };
 
-  handleFileUpload = () => {
+  handleFileUpload = photoType => {
+    // Note: the new photo boject created in handleNewImageClick has not
+    // been saved to Redux Store at this point.  So we need to that and
+    // then actually upload the image to Storage.
     console.log("BandForm..handleFileUpload");
+    const { saveNewPhotoAndUploadProcess } = this.props;
+    const photoInfo = this.state[`${photoType}PhotoInfo`];
+    const storageFileInfo = this.state[`${photoType}StorageFileInfo`];
+    saveNewPhotoAndUploadProcess(photoInfo, storageFileInfo, {});
   };
 
   handleNewImageClick = (photoType, values) => {
-    const { saveNewPhoto } = this.props;
+    // Create new image object and pass it down to the modal.  There is
+    // no need to save it to Redux Store, let alone the server, at this point.
+    // const { saveNewPhoto } = this.props;
     console.log("handNewImageClick");
     // console.log(values);
     const newPhotoId = `img-${shortId.generate()}`;
@@ -475,7 +484,7 @@ class BandForm extends Component {
           <ImageUploaderConn
             photoId={thumbPhotoInfo.id ? thumbPhotoInfo.id : ""}
             inputDisabled={!isEditExisting}
-            handleFileUpload={this.handleFileUpload}
+            handleFileUpload={() => this.handleFileUpload("thumb")}
             handleFileChange={fileInfo =>
               this.handleFileChange("thumb", fileInfo)
             }
@@ -519,6 +528,7 @@ BandForm.propTypes = {
   onChange: PropTypes.func,
   saveBandClear: PropTypes.func,
   saveNewPhoto: PropTypes.func.isRequired,
+  saveNewPhotoAndUploadProcess: PropTypes.func.isRequired,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   sendStorageCardStart: PropTypes.func,

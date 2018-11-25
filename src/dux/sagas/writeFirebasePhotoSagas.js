@@ -19,7 +19,7 @@ import {
 import {
   actionTypes as photosActionTypes,
   deletePhotos,
-  SAVE_NEW_PHOTO_AND_OPEN_IN_UI,
+  SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS,
   saveNewPhoto,
   savePhotoRequest,
   savePhotoSucceeded,
@@ -69,6 +69,13 @@ function* saveData() {
   }
 }
 
+function* savePhotoInfoAndUpload(data) {
+  yield console.log("savePhotoInfoAndUpload saga, data:");
+  yield console.log(data);
+  // Need to insert paths here?  We have data type etc.  Or is that
+  // done in sagas we're about to call.
+}
+/*
 function* saveAndOpenInUI(data) {
   console.log("saveAndOpenInUI data:");
   console.log(data);
@@ -80,6 +87,7 @@ function* saveAndOpenInUI(data) {
   yield window.open(domUrl, "_blank");
   // yield put(notifyInfo("When you've added and saved your photo, close this tab/window to return to band."));
 }
+*/
 
 function* deletePhotosProcess(deletePhotosAction) {
   // This generator function uses the
@@ -161,7 +169,8 @@ const writeFirebaseSagas = [
   takeEvery(photosActionTypes.SAVE_EDITED_PHOTO, saveData),
   takeEvery(photosActionTypes.DELETE_PHOTOS, saveData),
   takeEvery(photosActionTypes.START_DELETE_PHOTOS_PROCESS, deletePhotosProcess),
-  takeEvery(SAVE_NEW_PHOTO_AND_OPEN_IN_UI, saveAndOpenInUI)
+  takeEvery(SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS, savePhotoInfoAndUpload)
+  // takeEvery(SAVE_NEW_PHOTO_AND_OPEN_IN_UI, saveAndOpenInUI)
 ];
 
 export default writeFirebaseSagas;
