@@ -20,7 +20,8 @@ import {
   actionTypes as photosActionTypes,
   deletePhotos,
   SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS,
-  saveNewPhoto,
+  // saveNewPhoto,
+  appendNewPhoto,
   startFileUpload,
   savePhotoRequest,
   savePhotoSucceeded,
@@ -70,10 +71,32 @@ function* saveData() {
   }
 }
 
+/*
+https://redux-saga.js.org/docs/advanced/SequencingSagas.html
+
+function* playLevelOne() { ... }
+
+function* playLevelTwo() { ... }
+
+function* playLevelThree() { ... }
+
+function* game() {
+  const score1 = yield* playLevelOne()
+  yield put(showScore(score1))
+
+  const score2 = yield* playLevelTwo()
+  yield put(showScore(score2))
+
+  const score3 = yield* playLevelThree()
+  yield put(showScore(score3))
+}
+ */
+
 function* savePhotoInfoAndUpload(data) {
   yield console.log("savePhotoInfoAndUpload saga, data:");
   yield console.log(data);
-  // yield put(saveNewPhoto(data.photoInfo));
+  yield put(appendNewPhoto(data.payload.photoInfo)); // Adds to store without saving
+  yield* saveData();  // The saveData from *this* saga.
   // yield put(startFileUpload(data.storageInfo))
   
 

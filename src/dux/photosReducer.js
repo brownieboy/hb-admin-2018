@@ -17,6 +17,7 @@ const SAVE_PHOTO_REQUEST = "SAVE_PHOTO_REQUEST";
 const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 const SAVE_PHOTO_FAILED = "SAVE_PHOTO_FAILED";
 const SAVE_NEW_PHOTO = "SAVE_NEW_PHOTO";
+export const APPEND_NEW_PHOTO = "APPEND_NEW_PHOTO";
 const SAVE_EDITED_PHOTO = "SAVE_EDITED_PHOTO";
 export const START_PHOTO_FILE_UPLOAD = "START_PHOTO_FILE_UPLOAD";
 const UPDATE_PHOTO_FILE_URL = "UPDATE_PHOTO_FILE_URL";
@@ -55,6 +56,7 @@ const photosReducer = (state = defaultState, action) => {
       };
     case FETCH_PHOTOS_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
+    case APPEND_NEW_PHOTO:
     case SAVE_NEW_PHOTO: // deliberate fall through
       // case SAVE_NEW_PHOTO_AND_OPEN_IN_UI:
       return {
@@ -163,6 +165,10 @@ export const startFileUpload = fileInfo => ({
 });
 export const saveNewPhoto = photoInfo => ({
   type: SAVE_NEW_PHOTO,
+  payload: { photoInfo }
+});
+export const appendNewPhoto = photoInfo => ({
+  type: APPEND_NEW_PHOTO,
   payload: { photoInfo }
 });
 export const saveEditedPhoto = photoInfo => ({
