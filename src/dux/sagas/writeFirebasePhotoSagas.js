@@ -41,6 +41,8 @@ import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
+import { uploadImage } from "./uploadFirebaseImagesSagas.js";
+
 function* saveData() {
   // Every saved edit, we write back to Firebase as an array.
   // console.log("writeFirebasePhotoSagas..saveData()");
@@ -71,36 +73,17 @@ function* saveData() {
   }
 }
 
-/*
-https://redux-saga.js.org/docs/advanced/SequencingSagas.html
-
-function* playLevelOne() { ... }
-
-function* playLevelTwo() { ... }
-
-function* playLevelThree() { ... }
-
-function* game() {
-  const score1 = yield* playLevelOne()
-  yield put(showScore(score1))
-
-  const score2 = yield* playLevelTwo()
-  yield put(showScore(score2))
-
-  const score3 = yield* playLevelThree()
-  yield put(showScore(score3))
-}
- */
-
+// Here we're sequencing the sagas directly, rather than by posting the
+// equivalent Redux actions.  That's because these have to happen in
+// sequence.   See https://redux-saga.js.org/docs/advanced/SequencingSagas.html
 function* savePhotoInfoAndUpload(data) {
   yield console.log("savePhotoInfoAndUpload saga, data:");
   yield console.log(data);
   yield put(appendNewPhoto(data.payload.photoInfo)); // Adds to store without saving
-  yield* saveData();  // The saveData from *this* saga.
-  // yield put(startFileUpload(data.storageInfo))
-  
+  yield* saveData(); // The saveData from *this* saga.
+  yield* uploadImage({ payload: data.payload.storageInfo });
 
-/* this is what needs to get passed to starteFileUpload
+  /* this is what needs to get passed to starteFileUpload
 
 payload:
 assocEntityName: undefined
@@ -113,7 +96,6 @@ __proto__: Object
 type: "START_PHOTO_FILE_UPLOAD"
 
 */
-
 
   // Need to insert paths here?  We have data type etc.  Or is that
   // done in sagas we're about to call.

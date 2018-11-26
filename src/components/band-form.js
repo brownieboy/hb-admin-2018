@@ -105,7 +105,7 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
     };
     // Triggers savePhotoInfoAndUploadsaga watche din writeFirebasePhotoSagas.js
     saveNewPhotoAndUploadProcess(photoInfo, storageFileInfo, {});
-    this.setState({ [`${photoType}PhotoInfo`]: {} });
+    // this.setState({ [`${photoType}PhotoInfo`]: {} });
   };
 
   handleNewImageClick = (photoType, values) => {

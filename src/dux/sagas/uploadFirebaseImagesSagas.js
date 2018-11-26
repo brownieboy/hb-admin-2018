@@ -59,7 +59,7 @@ function* handleEventEmit(snapshot, id) {
   );
 }
 
-function* uploadImage(data) {
+export function* uploadImage(data) {
   yield console.log("saga uploadImage started, data:");
   yield console.log(data);
   const { storagePath } = data.payload;
@@ -67,7 +67,7 @@ function* uploadImage(data) {
   yield put(sendPhotoStorageStart(data.payload.id, data.payload));
   const file = yield data.payload.fileInfo;
   const filePath = yield `${storagePath}/${file.name}`;
-
+  
   const task = reduxSagaFirebase.storage.uploadFile(filePath, file);
 
   const channel = eventChannel(emit => task.on("state_changed", emit));
