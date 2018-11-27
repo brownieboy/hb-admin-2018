@@ -67,7 +67,7 @@ export function* uploadImage(data) {
   yield put(sendPhotoStorageStart(data.payload.id, data.payload));
   const file = yield data.payload.fileInfo;
   const filePath = yield `${storagePath}/${file.name}`;
-  
+
   const task = reduxSagaFirebase.storage.uploadFile(filePath, file);
 
   const channel = eventChannel(emit => task.on("state_changed", emit));
@@ -95,8 +95,8 @@ export function* uploadImage(data) {
 
   // const putOnSuccessObj = { downloadUrl, payload: data.payload };
   const putOnSuccessObj = { ...data.payload, downloadUrl, filePath };
-  // console.log("putOnSuccessObj:");
-  // console.log(putOnSuccessObj);
+  console.log("uploadFirebaseImagesSagas.js uploadImage, putOnSuccessObj:");
+  console.log(putOnSuccessObj);
   // Triggers UPDATE_PHOTO_FILE_URL action from photosReducer
   yield put(updatePhotoFileUrl(putOnSuccessObj));
 }

@@ -81,6 +81,8 @@ function* savePhotoInfoAndUpload(data) {
   yield console.log(data);
   yield put(appendNewPhoto(data.payload.photoInfo)); // Adds to store without saving
   yield* saveData(); // The saveData from *this* saga.
+
+  // From uploadFirebaseImagesSagas, does the actual uplaod
   yield* uploadImage({ payload: data.payload.storageInfo });
 
   /* this is what needs to get passed to starteFileUpload
