@@ -117,10 +117,10 @@ function* saveAndOpenInUI(data) {
 function* deletePhotosProcess(deletePhotosAction) {
   // This generator function uses the
   // deletePhotosAction.payload is an array of photo objects
-  yield console.log(
-    "deletePhotosProcess saga has listened, deletePhotosArray:"
-  );
-  console.log(deletePhotosAction);
+  // yield console.log(
+  //   "deletePhotosProcess saga has listened, deletePhotosAction:"
+  // );
+  // console.log(deletePhotosAction);
   // Syntax for calling a selector from a saga, taken from
   // https://github.com/reduxjs/reselect/issues/304
   // sagas (where you can call yield select(selector)
@@ -193,7 +193,7 @@ function* deletePhotosProcess(deletePhotosAction) {
 const writeFirebaseSagas = [
   takeEvery(photosActionTypes.SAVE_NEW_PHOTO, saveData),
   takeEvery(photosActionTypes.SAVE_EDITED_PHOTO, saveData),
-  // takeEvery(photosActionTypes.DELETE_PHOTOS, saveData),
+  takeEvery(photosActionTypes.DELETE_PHOTOS, saveData),
   takeEvery(photosActionTypes.START_DELETE_PHOTOS_PROCESS, deletePhotosProcess),
   takeEvery(SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS, savePhotoInfoAndUpload)
   // takeEvery(SAVE_NEW_PHOTO_AND_OPEN_IN_UI, saveAndOpenInUI)

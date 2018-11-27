@@ -116,8 +116,8 @@ const photosReducer = (state = defaultState, action) => {
       return { ...state, photosList: newPhotosList };
 
     case DELETE_PHOTOS:
-      newPhotosList = state.photosList.filter(photoMember =>
-        action.payload.includes(photoMember.id)
+      newPhotosList = state.photosList.filter(
+        photoMember => !action.payload.includes(photoMember.id)
       );
       return { ...state, photosList: newPhotosList };
 
