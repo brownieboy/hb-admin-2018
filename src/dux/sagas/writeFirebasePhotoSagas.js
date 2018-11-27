@@ -134,7 +134,7 @@ function* deletePhotosProcess(deletePhotosAction) {
   // );
 
   // 1. Delete the actual photos from Firebase storage
-  yield put(deleteStoragePhotos(deletePhotosAction.payload));
+  // yield put(deleteStoragePhotos(deletePhotosAction.payload));
   const selectedInUseIDs = deletePhotosAction.payload.map(
     photoMember => photoMember.id
   );
@@ -145,10 +145,11 @@ function* deletePhotosProcess(deletePhotosAction) {
   yield put(clearThumbPhotosFromStages(selectedInUseIDs));
   yield put(clearCardPhotosFromStages(selectedInUseIDs));
 
-  yield put(saveBandsToServer());
-  yield put(saveStagesToServer());
+  // yield put(saveBandsToServer());
+  // yield put(saveStagesToServer());
 
-  // 3. Delete photo docs themselves
+  // 3. Delete photo docs themselves, this triggers DELETE_PHOTOS, which
+  // is watched in this saga and will trigger a data save.
   yield put(deletePhotos(selectedInUseIDs));
 
   /*
@@ -192,7 +193,7 @@ function* deletePhotosProcess(deletePhotosAction) {
 const writeFirebaseSagas = [
   takeEvery(photosActionTypes.SAVE_NEW_PHOTO, saveData),
   takeEvery(photosActionTypes.SAVE_EDITED_PHOTO, saveData),
-  takeEvery(photosActionTypes.DELETE_PHOTOS, saveData),
+  // takeEvery(photosActionTypes.DELETE_PHOTOS, saveData),
   takeEvery(photosActionTypes.START_DELETE_PHOTOS_PROCESS, deletePhotosProcess),
   takeEvery(SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS, savePhotoInfoAndUpload)
   // takeEvery(SAVE_NEW_PHOTO_AND_OPEN_IN_UI, saveAndOpenInUI)
