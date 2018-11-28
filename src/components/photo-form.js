@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import shortId from "shortid";
 import * as yup from "yup";
 import PropTypes from "prop-types";
-import { Button, FormGroup, Label, Input } from "reactstrap";
+import { Button, FormGroup, Input, Label } from "reactstrap";
 // import qs from "qs";
 
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
@@ -111,7 +111,8 @@ class PhotoForm extends Component {
     const validationSchemaObj = {
       assocEntityId: yup.string().required(),
       type: yup.string().required(),
-      photoType: yup.string().required()
+      photoType: yup.string().required(),
+      caption: yup.string()
     };
 
     const isRedirectOn = !isEditExisting && saveStatus === "success";
@@ -254,6 +255,18 @@ class PhotoForm extends Component {
                   </div>
                 )}
                 <div>Filename: {values.fileName}</div>
+                <FormGroup>
+                  <Label check htmlFor="caption">
+                    Caption:
+                  </Label>
+                  <Input
+                    name="caption"
+                    type="text"
+                    value={values.caption}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </FormGroup>
                 <div style={{ display: "none" }}>Url: {values.fullUrl}</div>
                 <div style={{ marginTop: "10px" }}>
                   {values.photoType === "thumb" ? (
