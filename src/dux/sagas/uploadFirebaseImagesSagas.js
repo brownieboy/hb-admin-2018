@@ -104,10 +104,10 @@ export function* uploadImage(data) {
 function* deletePhotosFromStorage(deletePhotosAction) {
   // deletePhotosAction.payload has been pre-processed to be array of
   // photo objects, which have all the info that we need.
-  yield console.log(
-    "deletePhotosFromStorage saga has listened, deletePhotosAction.payload :"
-  );
-  yield console.log(deletePhotosAction.payload);
+  // yield console.log(
+  //   "deletePhotosFromStorage saga has listened, deletePhotosAction.payload :"
+  // );
+  // yield console.log(deletePhotosAction.payload);
   // const storageRef = firebaseApp.storage().ref();
   let filePathToDelete, deleteResponse;
 
@@ -131,12 +131,9 @@ function* deletePhotosFromStorage(deletePhotosAction) {
         reduxSagaFirebase.storage.deleteFile,
         filePathToDelete
       );
-     // deleteResponse = yield call(
-        
-      // );
 
-      console.log("success fetch meta data, deleteResponse:");
-      console.log({ resultType: "success", deleteResponse });
+      // console.log("success fetch meta data, deleteResponse:");
+      // console.log({ resultType: "success", deleteResponse });
       yield put(
         notifySuccess(
           `Succesfully deleted file ${filePathToDelete} from server storage.`
