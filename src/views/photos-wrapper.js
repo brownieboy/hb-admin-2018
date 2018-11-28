@@ -2,7 +2,9 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import {
   Button,
+  FormGroup,
   Input,
+  Label,
   Nav,
   TabContent,
   TabPane
@@ -43,7 +45,8 @@ class PhotosWrapper extends Component {
       scrollHeightPercent: 70,
       selectedItems: [],
       selectedItemsEnhanced: [],
-      browserWidth: 400
+      browserWidth: 400,
+      checkDeleteBinaries: true
     };
     // this.handleCheck = handleCheckExt.bind(this);
   }
@@ -125,8 +128,8 @@ var unique = a.filter( onlyUnique ); // returns ['a', 1, 2, '1']
       `;
     }
 
-    console.log("PhotosWrapper..handleDeleteItems, selectedItemsInUse:");
-    console.log(selectedItemsInUse);
+    // console.log("PhotosWrapper..handleDeleteItems, selectedItemsInUse:");
+    // console.log(selectedItemsInUse);
     this.setState({ showConfirmDeleteModal: true, confirmDeleteExtraMessage });
   };
 
@@ -163,6 +166,7 @@ var unique = a.filter( onlyUnique ); // returns ['a', 1, 2, '1']
       activeTab,
       browserWidth,
       confirmDeleteExtraMessage,
+      checkDeleteBinaries,
       scrollHeightPercent,
       selectedItems,
       selectedItemsEnhanced
@@ -349,13 +353,31 @@ var unique = a.filter( onlyUnique ); // returns ['a', 1, 2, '1']
             modalTitle="Delete Photos?"
             modalBody={`${confirmDeleteExtraMessage}Are you sure that you want to delete the selected photos?`}
             handleOk={() => {
-              startDeletePhotosProcess(selectedItemsEnhanced);
+              // Triggers START_DELETE_PHOTOS_PROCESS action type, listened to by
+              // writeFirebasePhotoSagas saga
+              startDeletePhotosProcess({
+                selectedItemsEnhanced,
+                deleteBinaries: checkDeleteBinaries
+              });
               this.setState({ showConfirmDeleteModal: false });
             }}
             handleCancel={() =>
               this.setState({ showConfirmDeleteModal: false })
             }
-          />
+          >
+            <FormGroup check style={{ marginTop: 10 }}>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  checked={checkDeleteBinaries}
+                  onChange={e =>
+                    this.setState({ checkDeleteBinaries: !checkDeleteBinaries })
+                  }
+                />{" "}
+                Deleted associated binary images from storage
+              </Label>
+            </FormGroup>
+          </ConfirmModal>
         </div>
       </Fragment>
     );

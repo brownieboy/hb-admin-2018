@@ -197,9 +197,9 @@ export const savePhotoFailed = error => ({
 });
 
 // Action that is listened to by the sagas.
-export const startDeletePhotosProcess = photoIdsArray => ({
+export const startDeletePhotosProcess = deletePhotoProcessObj => ({
   type: START_DELETE_PHOTOS_PROCESS,
-  payload: photoIdsArray
+  payload: deletePhotoProcessObj
 });
 
 // Action deletion of photos from this list

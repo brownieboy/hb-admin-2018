@@ -12,14 +12,12 @@ class ImageUploader extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    // Any time the current user changes,
-    // Reset any parts of state that are tied to that user.
-    // In this simple example, that's just the email.
+    // Trigger callback when the upload has finished.
     const { getUploadingPhotoProgressForId, photoId, handleProgressReachedMax } = props;
     const photoProgress = getUploadingPhotoProgressForId(photoId);
     if (photoProgress !== state.stateProgress) {
       if (photoProgress === 100 && handleProgressReachedMax) {
-        console.log("getDerivedStateFromProps.. photoProgress = 100%!");
+        // console.log("getDerivedStateFromProps.. photoProgress = 100%!");
         handleProgressReachedMax();
       }
       return {
@@ -87,7 +85,7 @@ ImageUploader.propTypes = {
   getUploadingPhotoProgressForId: PropTypes.func.isRequired,
   handleFileChange: PropTypes.func.isRequired,
   handleFileUpload: PropTypes.func.isRequired,
-  handleProgressReachedMax: PropTypes.func.isRequired,
+  handleProgressReachedMax: PropTypes.func,
   inputDisabled: PropTypes.bool,
   photoId: PropTypes.string.isRequired
 };

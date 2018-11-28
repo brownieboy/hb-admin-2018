@@ -119,11 +119,11 @@ function* saveAndOpenInUI(data) {
 
 function* deletePhotosProcess(deletePhotosAction) {
   // This generator function uses the
-  // deletePhotosAction.payload is an array of photo objects
-  // yield console.log(
-  //   "deletePhotosProcess saga has listened, deletePhotosAction:"
-  // );
-  // console.log(deletePhotosAction);
+  // deletePhotosAction.payload is an object
+  yield console.log(
+    "deletePhotosProcess saga has listened, deletePhotosAction:"
+  );
+  console.log(deletePhotosAction);
   // Syntax for calling a selector from a saga, taken from
   // https://github.com/reduxjs/reselect/issues/304
   // sagas (where you can call yield select(selector)
@@ -137,9 +137,22 @@ function* deletePhotosProcess(deletePhotosAction) {
   //   deleteStoragePhotos(selectedPhotoObjectsArray)
   // );
 
-  // 1. Delete the actual photos from Firebase storage
-  yield put(deleteStoragePhotos(deletePhotosAction.payload));
-  const selectedInUseIDs = deletePhotosAction.payload.map(
+  /*
+              startDeletePhotosProcess({
+                selectedItemsEnhanced,
+                deleteBinaries: checkDeleteBinaries
+              });
+ */
+
+  // 1. Delete the actual photos from Firebase storage, if user ticked that box
+  if (deletePhotosAction.payload.deleteBinaries) {
+    yield put(
+      deleteStoragePhotos(deletePhotosAction.payload.selectedItemsEnhanced)
+    );
+  }
+
+
+  const selectedInUseIDs = deletePhotosAction.payload.selectedItemsEnhanced.map(
     photoMember => photoMember.id
   );
   // 2. Delete references to the photo IDs on any band or stage docs
