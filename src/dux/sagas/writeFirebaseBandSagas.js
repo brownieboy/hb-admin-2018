@@ -17,7 +17,9 @@ import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
-function* saveData(notifySilent = false) {
+function* saveData(data) {
+  console.log("writeFirebaseBandSagas.js..saveData, date:");
+  console.log(data);
   // Every saved edit, we write back to Firebase as an array.
   yield put(saveBandRequest());
   const bandsList = yield select(state => state.bandsState.bandsList);
@@ -38,9 +40,7 @@ function* saveData(notifySilent = false) {
 
   if (firebaseError === "") {
     yield put(saveBandSucceeded());
-    if (!notifySilent) {
-      yield put(notifySuccess("Band saved to server okay"));
-    }
+    yield put(notifySuccess("Band saved to server okay"));
   } else {
     yield put(saveBandFailed(firebaseError));
     yield put(notifyError(`Error saving band: ${firebaseError}`));

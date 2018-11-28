@@ -410,20 +410,21 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
                   </Button>
                   <hr />
                   <h2>Images</h2>
-                  <Button
-                    type="button"
-                    onClick={() => this.handleNewImageClick("thumb", values)}
-                  >
-                    <i
-                      className="fa fa-image fa-lg"
-                      style={{ marginRight: "8px" }}
-                    />
-                    Create new thumbnail image
-                  </Button>
                   <div
                     name="imagesWrapper"
                     style={{ marginBottom: 100, marginTop: 10 }}
                   >
+                    <Button
+                      type="button"
+                      onClick={() => this.handleNewImageClick("thumb", values)}
+                    >
+                      <i
+                        className="fa fa-image fa-lg"
+                        style={{ marginRight: "8px" }}
+                      />
+                      Create new thumbnail image
+                    </Button>
+
                     <Input
                       type="select"
                       name="thumbPhotoId"
@@ -462,6 +463,16 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
                         />
                       </div>
                     </div>
+                    <Button
+                      type="button"
+                      onClick={() => this.handleNewImageClick("card", values)}
+                    >
+                      <i
+                        className="fa fa-image fa-lg"
+                        style={{ marginRight: "8px" }}
+                      />
+                      Create new card image
+                    </Button>
                     <Input
                       type="select"
                       name="cardPhotoId"
@@ -517,6 +528,25 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
             }
             fileName={
               thumbPhotoInfo.fileName ? thumbPhotoInfo.fileName : "unknown"
+            }
+          />
+        </ConfirmModal>
+        <ConfirmModal
+          displayModal={!!cardPhotoInfo.fileName}
+          modalTitle="Upload Card Image"
+          handleCancel={() => {
+            this.setState({ cardPhotoInfo: {} });
+          }}
+        >
+          <ImageUploaderConn
+            photoId={cardPhotoInfo.id ? cardPhotoInfo.id : ""}
+            inputDisabled={!isEditExisting}
+            handleFileUpload={() => this.handleFileUpload("card")}
+            handleFileChange={fileInfo =>
+              this.handleFileChange("card", fileInfo)
+            }
+            fileName={
+              cardPhotoInfo.fileName ? cardPhotoInfo.fileName : "unknown"
             }
           />
         </ConfirmModal>
