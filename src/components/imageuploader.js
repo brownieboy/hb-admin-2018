@@ -17,6 +17,9 @@ class ImageUploader extends Component {
     const displayProgressBar = fileName && fileName !== "" && fileName !== "unknown";
     // const matchingPhotoInfo = getPhotoInfoForId(photoId);
     const photoProgress = getUploadingPhotoProgressForId(photoId);
+    if (photoProgress === 100) {
+      console.log("photoProgress = 100%!");
+    }
     return (
       <div>
         <div>

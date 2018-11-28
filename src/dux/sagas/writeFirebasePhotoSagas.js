@@ -6,14 +6,14 @@ import { put, select, takeEvery } from "redux-saga/effects";
 // import { selectPhotos } from "../selectors/reselect-selectors.js";
 import {
   clearCardPhotosFromBands,
-  clearThumbPhotosFromBands,
-  saveBandsToServer
+  clearThumbPhotosFromBands
+  // saveBandsToServer
 } from "../bandsReducer.js";
 
 import {
   clearCardPhotosFromStages,
-  clearThumbPhotosFromStages,
-  saveStagesToServer
+  clearThumbPhotosFromStages
+  // saveStagesToServer
 } from "../stagesReducer.js";
 
 import {
@@ -23,7 +23,7 @@ import {
   SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS,
   // saveNewPhoto,
   appendNewPhoto,
-  startFileUpload,
+  // startFileUpload,
   savePhotoRequest,
   savePhotoSucceeded,
   savePhotoFailed
@@ -78,8 +78,8 @@ function* saveData() {
 // equivalent Redux actions.  That's because these have to happen in
 // sequence.   See https://redux-saga.js.org/docs/advanced/SequencingSagas.html
 function* savePhotoInfoAndUpload(data) {
-  yield console.log("savePhotoInfoAndUpload saga, data:");
-  yield console.log(data);
+  // yield console.log("savePhotoInfoAndUpload saga, data:");
+  // yield console.log(data);
   yield put(appendNewPhoto(data.payload.photoInfo)); // Adds to store without saving
   yield* saveData(); // The saveData from *this* saga.
 

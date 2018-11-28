@@ -60,8 +60,8 @@ function* handleEventEmit(snapshot, id) {
 }
 
 export function* uploadImage(data) {
-  yield console.log("saga uploadImage started, data:");
-  yield console.log(data);
+  // yield console.log("saga uploadImage started, data:");
+  // yield console.log(data);
   const { storagePath } = data.payload;
 
   yield put(sendPhotoStorageStart(data.payload.id, data.payload));
