@@ -20,7 +20,7 @@ const SAVE_NEW_PHOTO = "SAVE_NEW_PHOTO";
 export const APPEND_NEW_PHOTO = "APPEND_NEW_PHOTO";
 const SAVE_EDITED_PHOTO = "SAVE_EDITED_PHOTO";
 export const START_PHOTO_FILE_UPLOAD = "START_PHOTO_FILE_UPLOAD";
-const UPDATE_PHOTO_FILE_URL = "UPDATE_PHOTO_FILE_URL";
+export const UPDATE_PHOTO_FILE_URL = "UPDATE_PHOTO_FILE_URL";
 const START_DELETE_PHOTOS_PROCESS = "START_DELETE_PHOTOS_PROCESS";
 const DELETE_PHOTOS = "DELETE_PHOTOS";
 // export const SAVE_NEW_PHOTO_AND_OPEN_IN_UI = "SAVE_NEW_PHOTO_AND_OPEN_IN_UI";
@@ -100,12 +100,13 @@ const photosReducer = (state = defaultState, action) => {
         fileInfo: action.payload.fileInfo
       };
     case UPDATE_PHOTO_FILE_URL:
-      console.log("UPDATE_PHOTO_THUMB_URL reducer, action: ");
-      console.log(action);
+      // console.log("UPDATE_PHOTO_THUMB_URL reducer, action: ");
+      // console.log(action);
       // debugger;
       idx = state.photosList.findIndex(
         photoObj => photoObj.id === action.payload.id
       );
+
       newPhotosList = [
         ...state.photosList.slice(0, idx),
         {

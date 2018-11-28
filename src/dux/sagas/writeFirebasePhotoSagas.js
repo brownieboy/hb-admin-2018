@@ -19,6 +19,7 @@ import {
 import {
   actionTypes as photosActionTypes,
   deletePhotos,
+  UPDATE_PHOTO_FILE_URL,
   SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS,
   // saveNewPhoto,
   appendNewPhoto,
@@ -131,8 +132,7 @@ function* deletePhotosProcess(deletePhotosAction) {
   // const selectedPhotoObjectsArray = photoObjectsArray.filter(photoMember =>
   //   deletePhotosAction.payload.includes(photoMember.id)
   // );
-  
-  
+
   // yield put(
   //   deleteStoragePhotos(selectedPhotoObjectsArray)
   // );
@@ -199,7 +199,8 @@ const writeFirebaseSagas = [
   takeEvery(photosActionTypes.SAVE_EDITED_PHOTO, saveData),
   takeEvery(photosActionTypes.DELETE_PHOTOS, saveData),
   takeEvery(photosActionTypes.START_DELETE_PHOTOS_PROCESS, deletePhotosProcess),
-  takeEvery(SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS, savePhotoInfoAndUpload)
+  takeEvery(SAVE_NEW_PHOTO_AND_UPLOAD_PROCESS, savePhotoInfoAndUpload),
+  takeEvery(UPDATE_PHOTO_FILE_URL, saveData)
   // takeEvery(SAVE_NEW_PHOTO_AND_OPEN_IN_UI, saveAndOpenInUI)
 ];
 
