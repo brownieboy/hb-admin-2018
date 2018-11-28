@@ -6,6 +6,7 @@ const ConfirmModal = ({
   displayModal = false,
   modalBody = "",
   modalTitle = "Title here",
+  cancelButtonLabel = "Cancel",
   handleOk,
   handleCancel,
   children
@@ -24,13 +25,14 @@ const ConfirmModal = ({
       ) : null}
 
       <Button color="secondary" onClick={handleCancel}>
-        Cancel
+        {cancelButtonLabel}
       </Button>
     </ModalFooter>
   </Modal>
 );
 
 ConfirmModal.propTypes = {
+  cancelButtonLabel: PropTypes.string,
   displayModal: PropTypes.bool.isRequired,
   children: PropTypes.oneOfType(
     [PropTypes.array, PropTypes.object],

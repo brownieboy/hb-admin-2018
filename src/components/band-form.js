@@ -50,7 +50,9 @@ class BandForm extends Component {
       thumbPhotoInfo: {},
       cardPhotoInfo: {},
       thumbStorageFileInfo: {},
-      cardStorageFileInfo: {}
+      cardStorageFileInfo: {},
+      thumbModalCancelButtonLabel: "Cancel",
+      cardModalCancelButtonLabel: "Cancel"
     };
     this.linkWrapperRef = React.createRef();
   }
@@ -58,9 +60,6 @@ class BandForm extends Component {
   classId = "";
 
   handleFileChange = (photoType, fileInfo) => {
-    // console.log("handleThumbFileChange");
-    // console.log(event.target.files[0]);
-    // console.log("BandForm..handleFileChange");
     const newPhotoInfo = {
       ...this.state[`${photoType}PhotoInfo`],
       fileName: fileInfo.name
@@ -71,31 +70,11 @@ class BandForm extends Component {
     });
   };
 
-  /*
-From photoForm
-  handleFileUpload = (values, matchingPhotoInfo) => {
-    const storageData = {
-      id: values.id,
-      type: values.type,
-      photoType: values.photoType,
-      assocEntityName: matchingPhotoInfo
-        ? matchingPhotoInfo.assocEntityName
-        : "????",
-      fileInfo: this.state.fileInfo,
-      storagePath: getPhotoStoragePath(values.type, values.photoType)
-    };
-
-Need to replicate this below....
-... and then fullUrl and filePath need to get added to photoInfo somewhere,
-check saveEditedPhoto SAVE_EDITED_PHOTO action
-and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
- */
-
   handleFileUpload = photoType => {
     // Note: the new photo boject created in handleNewImageClick has not
     // been saved to Redux Store at this point.  So we need to that and
     // then actually upload the image to Storage.
-    console.log("BandForm..handleFileUpload");
+    // console.log("BandForm..handleFileUpload");
     const { saveNewPhotoAndUploadProcess } = this.props;
     const photoInfo = this.state[`${photoType}PhotoInfo`];
     const storageFileInfo = {
@@ -105,7 +84,7 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
     };
     // Triggers savePhotoInfoAndUploadsaga watche din writeFirebasePhotoSagas.js
     saveNewPhotoAndUploadProcess(photoInfo, storageFileInfo, {});
-    // this.setState({ [`${photoType}PhotoInfo`]: {} });
+    this.setState({ [`${photoType}ModalCancelButtonLabel`]: "Close" });
   };
 
   handleNewImageClick = (photoType, values) => {
@@ -161,8 +140,10 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
     const {
       thumbPhotoInfo,
       cardPhotoInfo,
-      thumbStorageFileInfo,
-      cardStorageFileInfo
+      // thumbStorageFileInfo,
+      // cardStorageFileInfo,
+      cardModalCancelButtonLabel,
+      thumbModalCancelButtonLabel
     } = this.state;
 
     let fieldValues = {
@@ -515,8 +496,12 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
         <ConfirmModal
           displayModal={!!thumbPhotoInfo.fileName}
           modalTitle="Upload Thumbnail Image"
+          cancelButtonLabel={thumbModalCancelButtonLabel}
           handleCancel={() => {
-            this.setState({ thumbPhotoInfo: {} });
+            this.setState({
+              thumbPhotoInfo: {},
+              thumbModalCancelButtonLabel: "Cancel"
+            });
           }}
         >
           <ImageUploaderConn
@@ -534,8 +519,12 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
         <ConfirmModal
           displayModal={!!cardPhotoInfo.fileName}
           modalTitle="Upload Card Image"
+          cancelButtonLabel={cardModalCancelButtonLabel}
           handleCancel={() => {
-            this.setState({ cardPhotoInfo: {} });
+            this.setState({
+              cardPhotoInfo: {},
+              cardModalCancelButtonLabel: "Cancel"
+            });
           }}
         >
           <ImageUploaderConn
@@ -554,17 +543,6 @@ and uploadImage in uploadFirebaseImagesSagas.js.  That may do it all for us!
     );
   }
 }
-
-/*
-
-                  <span ref={this.linkWrapperRef} style={{ display: "none" }}>
-                    <Link to={`/photoform/${newPhotoLinkId}`}>
-                      Temp photo link
-                    </Link>
-                  </span>
-
-https://findmyfbid.com/, https://findmyfbid.com/
-*/
 
 BandForm.propTypes = {
   cardProgress: PropTypes.number,

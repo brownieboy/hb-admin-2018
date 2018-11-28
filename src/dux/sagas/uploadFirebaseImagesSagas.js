@@ -95,8 +95,8 @@ export function* uploadImage(data) {
 
   // const putOnSuccessObj = { downloadUrl, payload: data.payload };
   const putOnSuccessObj = { ...data.payload, downloadUrl, filePath };
-  console.log("uploadFirebaseImagesSagas.js uploadImage, putOnSuccessObj:");
-  console.log(putOnSuccessObj);
+  // console.log("uploadFirebaseImagesSagas.js uploadImage, putOnSuccessObj:");
+  // console.log(putOnSuccessObj);
   // Triggers UPDATE_PHOTO_FILE_URL action from photosReducer
   yield put(updatePhotoFileUrl(putOnSuccessObj));
 }
