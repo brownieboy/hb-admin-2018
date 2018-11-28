@@ -84,7 +84,7 @@ class BandForm extends Component {
     };
     // Triggers savePhotoInfoAndUploadsaga watche din writeFirebasePhotoSagas.js
     saveNewPhotoAndUploadProcess(photoInfo, storageFileInfo, {});
-    this.setState({ [`${photoType}ModalCancelButtonLabel`]: "Close" });
+    // this.setState({ [`${photoType}ModalCancelButtonLabel`]: "Close" });
   };
 
   handleNewImageClick = (photoType, values) => {
@@ -511,6 +511,11 @@ class BandForm extends Component {
             handleFileChange={fileInfo =>
               this.handleFileChange("thumb", fileInfo)
             }
+            handleProgressReachedMax={() => {
+              this.setState({
+                thumbModalCancelButtonLabel: "Close"
+              });
+            }}
             fileName={
               thumbPhotoInfo.fileName ? thumbPhotoInfo.fileName : "unknown"
             }
@@ -534,6 +539,11 @@ class BandForm extends Component {
             handleFileChange={fileInfo =>
               this.handleFileChange("card", fileInfo)
             }
+            handleProgressReachedMax={() => {
+              this.setState({
+                cardModalCancelButtonLabel: "Close"
+              });
+            }}
             fileName={
               cardPhotoInfo.fileName ? cardPhotoInfo.fileName : "unknown"
             }

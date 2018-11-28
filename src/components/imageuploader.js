@@ -3,23 +3,49 @@ import PropTypes from "prop-types";
 import UploadProgressBar from "./uploadprogressbar.js";
 
 class ImageUploader extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      stateProgress: 0
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    // Any time the current user changes,
+    // Reset any parts of state that are tied to that user.
+    // In this simple example, that's just the email.
+    const { getUploadingPhotoProgressForId, photoId, handleProgressReachedMax } = props;
+    const photoProgress = getUploadingPhotoProgressForId(photoId);
+    if (photoProgress !== state.stateProgress) {
+      if (photoProgress === 100 && handleProgressReachedMax) {
+        console.log("getDerivedStateFromProps.. photoProgress = 100%!");
+        handleProgressReachedMax();
+      }
+      return {
+        stateProgress: photoProgress
+      };
+    }
+    return null;
+  }
+
   render() {
     const {
       inputDisabled = false,
       // getPhotoInfoForId,
-      getUploadingPhotoProgressForId,
-      photoId,
+      // getUploadingPhotoProgressForId,
+      // photoId,
       fileName = "",
       handleFileUpload,
       handleFileChange
     } = this.props;
 
-    const displayProgressBar = fileName && fileName !== "" && fileName !== "unknown";
+    const displayProgressBar =
+      fileName && fileName !== "" && fileName !== "unknown";
     // const matchingPhotoInfo = getPhotoInfoForId(photoId);
-    const photoProgress = getUploadingPhotoProgressForId(photoId);
-    if (photoProgress === 100) {
-      console.log("photoProgress = 100%!");
-    }
+    // const photoProgress = getUploadingPhotoProgressForId(photoId);
+    const { stateProgress } = this.state;
+
     return (
       <div>
         <div>
@@ -48,7 +74,7 @@ class ImageUploader extends Component {
             display: displayProgressBar ? "block" : "none"
           }}
         >
-          <UploadProgressBar photoProgress={photoProgress} />
+          <UploadProgressBar photoProgress={stateProgress} />
         </div>
       </div>
     );
@@ -61,6 +87,7 @@ ImageUploader.propTypes = {
   getUploadingPhotoProgressForId: PropTypes.func.isRequired,
   handleFileChange: PropTypes.func.isRequired,
   handleFileUpload: PropTypes.func.isRequired,
+  handleProgressReachedMax: PropTypes.func.isRequired,
   inputDisabled: PropTypes.bool,
   photoId: PropTypes.string.isRequired
 };
