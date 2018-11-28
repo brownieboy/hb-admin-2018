@@ -131,12 +131,14 @@ function* deletePhotosProcess(deletePhotosAction) {
   // const selectedPhotoObjectsArray = photoObjectsArray.filter(photoMember =>
   //   deletePhotosAction.payload.includes(photoMember.id)
   // );
+  
+  
   // yield put(
   //   deleteStoragePhotos(selectedPhotoObjectsArray)
   // );
 
   // 1. Delete the actual photos from Firebase storage
-  // yield put(deleteStoragePhotos(deletePhotosAction.payload));
+  yield put(deleteStoragePhotos(deletePhotosAction.payload));
   const selectedInUseIDs = deletePhotosAction.payload.map(
     photoMember => photoMember.id
   );

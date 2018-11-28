@@ -102,6 +102,7 @@ const photosReducer = (state = defaultState, action) => {
     case UPDATE_PHOTO_FILE_URL:
       console.log("UPDATE_PHOTO_THUMB_URL reducer, action: ");
       console.log(action);
+      // debugger;
       idx = state.photosList.findIndex(
         photoObj => photoObj.id === action.payload.id
       );
