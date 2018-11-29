@@ -103,7 +103,8 @@ class PhotoForm extends Component {
       // console.log(qs.parse(match.params.id));
       matchingPhotoInfo = getPhotoInfoForId(match.params.id);
       if (matchingPhotoInfo) {
-        fieldValues = { fullUrl: "", ...matchingPhotoInfo };
+        // fieldValues = { fullUrl: "", ...matchingPhotoInfo };
+        fieldValues = { ...fieldValues, ...matchingPhotoInfo };
       }
     }
 
@@ -154,6 +155,7 @@ class PhotoForm extends Component {
             } = props;
 
             // radio inputs from https://github.com/jaredpalmer/formik/issues/116
+
             return (
               <div>
                 <form onSubmit={handleSubmit}>
@@ -258,14 +260,16 @@ class PhotoForm extends Component {
                 <div>Filename: {values.fileName}</div>
                 <FormGroup>
                   <Label check htmlFor="caption">
-                    Caption:
+                    Caption (optional):
                   </Label>
                   <Input
                     name="caption"
                     type="text"
+                    placeholder="Will be displayed under photo in the app (Card only)"
                     value={values.caption}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    disabled={values.photoType !== "card"}
                   />
                 </FormGroup>
                 <div style={{ display: "none" }}>Url: {values.fullUrl}</div>
