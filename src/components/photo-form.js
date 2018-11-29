@@ -93,7 +93,8 @@ class PhotoForm extends Component {
     let fieldValues = {
       fileName: "unknown",
       id: "",
-      fullUrl: ""
+      fullUrl: "",
+      caption: ""
     };
 
     let matchingPhotoInfo;
@@ -283,7 +284,7 @@ class PhotoForm extends Component {
                     photoId={values.id}
                     inputDisabled={!isEditExisting}
                     handleFileUpload={() => {
-                      // Note: we're *not* passing values or matchingPhotoInfo
+                      // Note: we're not passing values or matchingPhotoInfo
                       // down to ImageLoaderConn here. Just the wrapper function.
                       this.handleFileUpload(values, matchingPhotoInfo);
                     }}
