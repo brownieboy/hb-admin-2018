@@ -77,7 +77,8 @@ const photosReducer = (state = defaultState, action) => {
             ...currentPhotoObj,
             fileName: action.payload.fileName,
             photoType: action.payload.photoType,
-            fullUrl: action.payload.fullUrl
+            fullUrl: action.payload.fullUrl,
+            caption: action.payload.caption
           },
           ...state.photosList.slice(idx + 1)
         ];

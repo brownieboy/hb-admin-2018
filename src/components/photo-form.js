@@ -102,6 +102,8 @@ class PhotoForm extends Component {
       // console.log("parsed is");
       // console.log(qs.parse(match.params.id));
       matchingPhotoInfo = getPhotoInfoForId(match.params.id);
+      // console.log("matchingPhotoInfo");
+      // console.log(matchingPhotoInfo);
       if (matchingPhotoInfo) {
         // fieldValues = { fullUrl: "", ...matchingPhotoInfo };
         fieldValues = { ...fieldValues, ...matchingPhotoInfo };
@@ -137,8 +139,8 @@ class PhotoForm extends Component {
             if (fileInfo.name) {
               values.fileName = fileInfo.name;
             }
-            // console.log("onSubmit photo values:");
-            // console.log(values);
+            console.log("onSubmit photo values:");
+            console.log(values);
             notifyInfo("Submitting photo data to server...");
 
             submitDataToServer(values); // saveEditedPhoto from photosReducer
