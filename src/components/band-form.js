@@ -489,66 +489,83 @@ class BandForm extends Component {
                     </div>
                   </div>
                 </form>
+                <ConfirmModal
+                  displayModal={!!thumbPhotoInfo.fileName}
+                  modalTitle="Upload Thumbnail Image"
+                  cancelButtonLabel={thumbModalCancelButtonLabel}
+                  handleCancel={() => {
+                    this.setState({
+                      thumbPhotoInfo: {},
+                      thumbModalCancelButtonLabel: "Cancel"
+                    });
+                  }}
+                >
+                  <ImageUploaderConn
+                    photoId={thumbPhotoInfo.id ? thumbPhotoInfo.id : ""}
+                    inputDisabled={!isEditExisting}
+                    handleFileUpload={() => this.handleFileUpload("thumb")}
+                    handleFileChange={fileInfo =>
+                      this.handleFileChange("thumb", fileInfo)
+                    }
+                    handleProgressReachedMax={() => {
+                      this.setState({
+                        thumbModalCancelButtonLabel: "Close"
+                      });
+                    }}
+                    fileName={
+                      thumbPhotoInfo.fileName
+                        ? thumbPhotoInfo.fileName
+                        : "unknown"
+                    }
+                  />
+                </ConfirmModal>
+                <ConfirmModal
+                  displayModal={!!cardPhotoInfo.fileName}
+                  modalTitle="Upload Card Image"
+                  cancelButtonLabel={cardModalCancelButtonLabel}
+                  handleCancel={() => {
+                    this.setState({
+                      cardPhotoInfo: {},
+                      cardModalCancelButtonLabel: "Cancel"
+                    });
+                  }}
+                >
+                  <FormGroup>
+                    <Label check htmlFor="caption">
+                      Caption (optional):
+                    </Label>
+                    <Input
+                      name="caption"
+                      type="text"
+                      placeholder="Will be displayed under photo in the app"
+                      value={values.caption}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </FormGroup>
+                  <ImageUploaderConn
+                    photoId={cardPhotoInfo.id ? cardPhotoInfo.id : ""}
+                    inputDisabled={!isEditExisting}
+                    handleFileUpload={() => this.handleFileUpload("card")}
+                    handleFileChange={fileInfo =>
+                      this.handleFileChange("card", fileInfo)
+                    }
+                    handleProgressReachedMax={() => {
+                      this.setState({
+                        cardModalCancelButtonLabel: "Close"
+                      });
+                    }}
+                    fileName={
+                      cardPhotoInfo.fileName
+                        ? cardPhotoInfo.fileName
+                        : "unknown"
+                    }
+                  />
+                </ConfirmModal>
               </div>
             );
           }}
         />
-        <ConfirmModal
-          displayModal={!!thumbPhotoInfo.fileName}
-          modalTitle="Upload Thumbnail Image"
-          cancelButtonLabel={thumbModalCancelButtonLabel}
-          handleCancel={() => {
-            this.setState({
-              thumbPhotoInfo: {},
-              thumbModalCancelButtonLabel: "Cancel"
-            });
-          }}
-        >
-          <ImageUploaderConn
-            photoId={thumbPhotoInfo.id ? thumbPhotoInfo.id : ""}
-            inputDisabled={!isEditExisting}
-            handleFileUpload={() => this.handleFileUpload("thumb")}
-            handleFileChange={fileInfo =>
-              this.handleFileChange("thumb", fileInfo)
-            }
-            handleProgressReachedMax={() => {
-              this.setState({
-                thumbModalCancelButtonLabel: "Close"
-              });
-            }}
-            fileName={
-              thumbPhotoInfo.fileName ? thumbPhotoInfo.fileName : "unknown"
-            }
-          />
-        </ConfirmModal>
-        <ConfirmModal
-          displayModal={!!cardPhotoInfo.fileName}
-          modalTitle="Upload Card Image"
-          cancelButtonLabel={cardModalCancelButtonLabel}
-          handleCancel={() => {
-            this.setState({
-              cardPhotoInfo: {},
-              cardModalCancelButtonLabel: "Cancel"
-            });
-          }}
-        >
-          <ImageUploaderConn
-            photoId={cardPhotoInfo.id ? cardPhotoInfo.id : ""}
-            inputDisabled={!isEditExisting}
-            handleFileUpload={() => this.handleFileUpload("card")}
-            handleFileChange={fileInfo =>
-              this.handleFileChange("card", fileInfo)
-            }
-            handleProgressReachedMax={() => {
-              this.setState({
-                cardModalCancelButtonLabel: "Close"
-              });
-            }}
-            fileName={
-              cardPhotoInfo.fileName ? cardPhotoInfo.fileName : "unknown"
-            }
-          />
-        </ConfirmModal>
       </div>
     );
   }
