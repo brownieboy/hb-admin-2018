@@ -70,13 +70,13 @@ class BandForm extends Component {
     });
   };
 
-  handleFileUpload = photoType => {
+  handleFileUpload = (photoType, caption = "") => {
     // Note: the new photo boject created in handleNewImageClick has not
     // been saved to Redux Store at this point.  So we need to that and
     // then actually upload the image to Storage.
     // console.log("BandForm..handleFileUpload");
     const { saveNewPhotoAndUploadProcess } = this.props;
-    const photoInfo = this.state[`${photoType}PhotoInfo`];
+    const photoInfo = { ...this.state[`${photoType}PhotoInfo`], caption };
     const storageFileInfo = {
       ...this.state[`${photoType}PhotoInfo`],
       fileInfo: this.state[`${photoType}StorageFileInfo`],
@@ -150,6 +150,7 @@ class BandForm extends Component {
       name: "",
       id: "",
       summary: "",
+      caption: "",
       blurb: "",
       facebookPageUrl: "",
       facebookId: "",
@@ -229,7 +230,10 @@ class BandForm extends Component {
             // console.log("onSubmit band values:");
             // console.log(values);
             notifyInfo("Submitting band data to server...");
-            submitDataToServer(values);
+            // caption part of photo data, not band, so we need to remove it
+            // from our submitted object.
+            const { caption, ...remainderObj } = values; // eslint-disable-line no-unused-vars
+            submitDataToServer(remainderObj);
             actions.setSubmitting(false);
           }}
           render={props => {
@@ -546,7 +550,9 @@ class BandForm extends Component {
                   <ImageUploaderConn
                     photoId={cardPhotoInfo.id ? cardPhotoInfo.id : ""}
                     inputDisabled={!isEditExisting}
-                    handleFileUpload={() => this.handleFileUpload("card")}
+                    handleFileUpload={() => {
+                      this.handleFileUpload("card", values.caption);
+                    }}
                     handleFileChange={fileInfo =>
                       this.handleFileChange("card", fileInfo)
                     }
@@ -589,7 +595,7 @@ BandForm.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveBandClear: PropTypes.func,
-  saveNewPhoto: PropTypes.func.isRequired,
+  // saveNewPhoto: PropTypes.func.isRequired,
   saveNewPhotoAndUploadProcess: PropTypes.func.isRequired,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
