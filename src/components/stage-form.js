@@ -2,14 +2,18 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { Formik } from "formik";
+import shortId from "shortid";
 import * as yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 // import CardThumbImagesSubForm from "./cardthumbimages-subform.js";
 
+import ConfirmModal from "./confirm-modal.js";
+import ImageUploaderConn from "../containers/imageuploader-conn.js";
 import { CardImage, ThumbImage } from "./photo-display.js";
 import { OptionsForArray } from "../helper-functions/field-helpers.js";
+import { getPhotoStoragePath } from "../constants/firebasePaths.js";
 
 import {
   formFieldsWrapperStyles,
@@ -31,13 +35,70 @@ class StageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      thumbFileInfo: {},
-      cardFileInfo: {},
-      cardPostFileName: ""
+      thumbPhotoInfo: {},
+      cardPhotoInfo: {},
+      thumbStorageFileInfo: {},
+      cardStorageFileInfo: {},
+      thumbModalCancelButtonLabel: "Cancel",
+      cardModalCancelButtonLabel: "Cancel"
     };
   }
 
   classId = "";
+
+  handleFileChange = (photoType, fileInfo) => {
+    const newPhotoInfo = {
+      ...this.state[`${photoType}PhotoInfo`],
+      fileName: fileInfo.name
+    };
+    this.setState({
+      [`${photoType}StorageFileInfo`]: fileInfo,
+      [`${photoType}PhotoInfo`]: newPhotoInfo
+    });
+  };
+
+  handleFileUpload = (photoType = "") => {
+    // Note: the new photo boject created in handleNewImageClick has not
+    // been saved to Redux Store at this point.  So we need to that and
+    // then actually upload the image to Storage.
+    // console.log("BandForm..handleFileUpload");
+    const { saveNewPhotoAndUploadProcess } = this.props;
+    const photoInfo = { ...this.state[`${photoType}PhotoInfo`] };
+    const storageFileInfo = {
+      ...this.state[`${photoType}PhotoInfo`],
+      fileInfo: this.state[`${photoType}StorageFileInfo`],
+      storagePath: getPhotoStoragePath("stage", photoType)
+    };
+    // Triggers savePhotoInfoAndUploadsaga watche din writeFirebasePhotoSagas.js
+    saveNewPhotoAndUploadProcess(photoInfo, storageFileInfo, {});
+    // this.setState({ [`${photoType}ModalCancelButtonLabel`]: "Close" });
+  };
+
+  handleNewImageClick = (photoType, values) => {
+    // Create new image object and pass it down to the modal.  There is
+    // no need to save it to Redux Store, let alone the server, at this point.
+    // const { saveNewPhoto } = this.props;
+    console.log("handNewImageClick");
+    // console.log(values);
+    const newPhotoId = `img-${shortId.generate()}`;
+
+    const newPhotoObj = {
+      id: newPhotoId,
+      assocEntityId: values.id,
+      fileName: "unknown",
+      fullUrl: "",
+      type: "stage",
+      photoType
+    };
+    // const domUrl = this.linkWrapperRef.current
+    //   .getElementsByTagName("a")[0]
+    // .getAttribute("href");
+    //  saveNewPhotoAndOpenInNewUI(newPhotoObj, domUrl);
+    //  saveNewPhoto(newPhotoObj);
+    // this.setState({ [`newPhoto${photoType}Id`]: newPhotoId });
+    // Dynamic property name assignment
+    this.setState({ [`${photoType}PhotoInfo`]: newPhotoObj });
+  };
 
   componentWillUnmount() {
     // console.log("Clearing from componentWillUnmount");
@@ -71,7 +132,16 @@ class StageForm extends Component {
       saveStatus,
       saveError
     } = this.props;
-    let fieldValues = {
+
+    const {
+      thumbPhotoInfo,
+      cardPhotoInfo,
+      cardModalCancelButtonLabel,
+      thumbModalCancelButtonLabel
+    } = this.state;
+
+    let fieldValues;
+    const defaultFieldValues = {
       name: "",
       id: "",
       sortOrder: -1,
@@ -81,6 +151,7 @@ class StageForm extends Component {
       cardPhotoId: ""
     };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
+
     let matchingInfo,
       matchingCardPhotosArray = [],
       matchingThumbPhotosArray = [];
@@ -89,11 +160,17 @@ class StageForm extends Component {
       matchingInfo = getStageInfoForId(match.params.id);
 
       if (matchingInfo) {
-        fieldValues = Object.assign({}, matchingInfo);
+        // fieldValues = Object.assign({}, matchingInfo);
+        fieldValues = { ...defaultFieldValues, ...matchingInfo };
+      } else {
+        // No matchingInfoFound
+        fieldValues = { ...defaultFieldValues };
       }
       matchingCardPhotosArray = selectCardPhotosForStage(match.params.id);
       matchingThumbPhotosArray = selectThumbPhotosForStage(match.params.id);
     } else {
+      // Not edting an existing one.
+      fieldValues = { ...defaultFieldValues };
       validationSchemaObj.id = yup
         .string()
         .required()
@@ -216,10 +293,83 @@ class StageForm extends Component {
                   <Button type="submit" color="primary">
                     Save
                   </Button>
+
+                  <ConfirmModal
+                    displayModal={!!thumbPhotoInfo.fileName}
+                    modalTitle="Upload Thumbnail Image"
+                    cancelButtonLabel={thumbModalCancelButtonLabel}
+                    handleCancel={() => {
+                      this.setState({
+                        thumbPhotoInfo: {},
+                        thumbModalCancelButtonLabel: "Cancel"
+                      });
+                    }}
+                  >
+                    <ImageUploaderConn
+                      photoId={thumbPhotoInfo.id ? thumbPhotoInfo.id : ""}
+                      inputDisabled={!isEditExisting}
+                      handleFileUpload={() => this.handleFileUpload("thumb")}
+                      handleFileChange={fileInfo =>
+                        this.handleFileChange("thumb", fileInfo)
+                      }
+                      handleProgressReachedMax={() => {
+                        this.setState({
+                          thumbModalCancelButtonLabel: "Close"
+                        });
+                      }}
+                      fileName={
+                        thumbPhotoInfo.fileName
+                          ? thumbPhotoInfo.fileName
+                          : "unknown"
+                      }
+                    />
+                  </ConfirmModal>
+                  <ConfirmModal
+                    displayModal={!!cardPhotoInfo.fileName}
+                    modalTitle="Upload Card Image"
+                    cancelButtonLabel={cardModalCancelButtonLabel}
+                    handleCancel={() => {
+                      this.setState({
+                        cardPhotoInfo: {},
+                        cardModalCancelButtonLabel: "Cancel"
+                      });
+                    }}
+                  >
+                    <ImageUploaderConn
+                      photoId={cardPhotoInfo.id ? cardPhotoInfo.id : ""}
+                      inputDisabled={!isEditExisting}
+                      handleFileUpload={() => {
+                        this.handleFileUpload("card");
+                      }}
+                      handleFileChange={fileInfo =>
+                        this.handleFileChange("card", fileInfo)
+                      }
+                      handleProgressReachedMax={() => {
+                        this.setState({
+                          cardModalCancelButtonLabel: "Close"
+                        });
+                      }}
+                      fileName={
+                        cardPhotoInfo.fileName
+                          ? cardPhotoInfo.fileName
+                          : "unknown"
+                      }
+                    />
+                  </ConfirmModal>
                 </form>
                 <hr />
                 <h2>Images</h2>
                 <div name="imagesWrapper" style={{ marginBottom: 100 }}>
+                  <Button
+                    type="button"
+                    onClick={() => this.handleNewImageClick("thumb", values)}
+                  >
+                    <i
+                      className="fa fa-image fa-lg"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Create new thumbnail image
+                  </Button>
                   <Input
                     type="select"
                     name="thumbPhotoId"
@@ -253,6 +403,16 @@ class StageForm extends Component {
                       />
                     </div>
                   </div>
+                  <Button
+                    type="button"
+                    onClick={() => this.handleNewImageClick("card", values)}
+                  >
+                    <i
+                      className="fa fa-image fa-lg"
+                      style={{ marginRight: "8px" }}
+                    />
+                    Create new card image
+                  </Button>
                   <Input
                     type="select"
                     name="cardPhotoId"
@@ -309,6 +469,7 @@ StageForm.propTypes = {
   saveError: PropTypes.object,
   selectCardPhotosForStage: PropTypes.func.isRequired,
   selectThumbPhotosForStage: PropTypes.func.isRequired,
+  saveNewPhotoAndUploadProcess: PropTypes.func,
   submitDataToServer: PropTypes.func.isRequired,
   values: PropTypes.object
 };

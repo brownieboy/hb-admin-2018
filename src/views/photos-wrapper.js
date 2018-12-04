@@ -180,6 +180,10 @@ var unique = a.filter( onlyUnique ); // returns ['a', 1, 2, '1']
       overflowY: "auto"
     };
 
+    const captionStyle = {
+      fontSize: "9px"
+    };
+
     return (
       <Fragment>
         <div style={{ maxWidth: "530px" }}>
@@ -231,6 +235,9 @@ var unique = a.filter( onlyUnique ); // returns ['a', 1, 2, '1']
                   <span className="col-md-1">{photoMember.type}</span>
                   <span className="col-md-3 text-center">
                     <DisplayImage photoMember={photoMember} />
+                    <div style={captionStyle}>
+                      {photoMember.caption || ""}
+                    </div>
                   </span>
                   <span
                     style={{ height: "20px" }}
@@ -264,12 +271,16 @@ var unique = a.filter( onlyUnique ); // returns ['a', 1, 2, '1']
                   </span>
                   <Link
                     to={`/photoform/${photoMember.id}`}
-                    className="col-md-4"
+                    className="col-md-3"
                   >
                     <span>{photoMember.fileName}</span>
                   </Link>
+
                   <span className="col-md-3 text-center">
                     <DisplayImage photoMember={photoMember} />
+                    <div style={captionStyle}>
+                      {photoMember.caption || ""}
+                    </div>
                   </span>
                   <span
                     style={{ height: "20px" }}

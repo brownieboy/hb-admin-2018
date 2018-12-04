@@ -114,7 +114,7 @@ class BandForm extends Component {
   };
 
   componentWillUnmount() {
-    // console.log("Clearing from componentWillUnmount");
+    // console.log("band Form Clearing from componentWillUnmount");
     if (this.props.saveBandClear) {
       this.props.saveBandClear(); // Clear saveSuccess status so we don't loop
     }
@@ -146,7 +146,8 @@ class BandForm extends Component {
       thumbModalCancelButtonLabel
     } = this.state;
 
-    let fieldValues = {
+    let fieldValues;
+    const defaultFieldValues = {
       name: "",
       id: "",
       summary: "",
@@ -166,8 +167,16 @@ class BandForm extends Component {
       matchingThumbPhotosArray = [];
     if (isEditExisting) {
       matchingInfo = getBandInfoForId(match.params.id);
+      // console.log("band form matchingInfo");
+      // console.log(matchingInfo);
+      // const mergedFieldValues = { ...fieldValues, ...matchingInfo };
+      // console.log("mergedFieldValues");
+      // console.log(mergedFieldValues);
+
       if (matchingInfo) {
-        fieldValues = Object.assign({ yearsAppearing: [] }, matchingInfo);
+        // fieldValues = Object.assign({ yearsAppearing: [] }, matchingInfo);
+        fieldValues = { ...defaultFieldValues, ...matchingInfo };
+
         // if (typeof fieldValues.yearsAppearing === "undefined") {
         //   fieldValues.yearsAppearing = []; // Late addition
         // }
@@ -198,8 +207,13 @@ class BandForm extends Component {
           );
         matchingCardPhotosArray = selectCardPhotosForBand(match.params.id);
         matchingThumbPhotosArray = selectThumbPhotosForBand(match.params.id);
+      } else {
+        // No matchingInfoFound
+        fieldValues = { ...defaultFieldValues };
       }
     } else {
+      // Not edting an existing one.
+      fieldValues = { ...defaultFieldValues };
       validationSchemaObj.id = yup
         .string()
         .required()
@@ -596,7 +610,7 @@ BandForm.propTypes = {
   onChange: PropTypes.func,
   saveBandClear: PropTypes.func,
   // saveNewPhoto: PropTypes.func.isRequired,
-  saveNewPhotoAndUploadProcess: PropTypes.func.isRequired,
+  saveNewPhotoAndUploadProcess: PropTypes.func,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   sendStorageCardStart: PropTypes.func,

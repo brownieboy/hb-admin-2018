@@ -17,6 +17,8 @@ import {
   getStageInfoForId as getStageInfoForIdAction
 } from "../dux/stagesReducer.js";
 
+import { saveNewPhotoAndUploadProcess } from "../dux/photosReducer.js";
+
 import { notifyInfo } from "../dux/react-redux-notify-helpers.js";
 
 const getCommonStateObject = state => ({
@@ -25,7 +27,8 @@ const getCommonStateObject = state => ({
   getStageInfoForId: stageId =>
     getStageInfoForIdAction(state.stagesState.stagesList, stageId),
   selectCardPhotosForStage: stageId => selectCardPhotosForStage(state, stageId),
-  selectThumbPhotosForStage: stageId => selectThumbPhotosForStage(state, stageId),
+  selectThumbPhotosForStage: stageId =>
+    selectThumbPhotosForStage(state, stageId),
   isLoggedIn: state.firebaseLoginState.loggedIn
 });
 
@@ -46,7 +49,8 @@ const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators(
     {
       notifyInfo,
-      submitDataToServer: saveEditedStage
+      submitDataToServer: saveEditedStage,
+      saveNewPhotoAndUploadProcess
     },
     dispatch
   );
@@ -64,4 +68,3 @@ export const StageFormEditConn = connect(
   mapStateToPropsEdit,
   mapDispatchToPropsEdit
 )(StageForm);
-
